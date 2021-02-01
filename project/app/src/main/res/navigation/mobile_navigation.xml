@@ -12,14 +12,19 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.hilali.finalproject.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_add_design"
+        android:name="com.hilali.finalproject.ui.addPost.AddDesignFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_add_design" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.hilali.finalproject.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_user_profile"
+        android:name="com.hilali.finalproject.ui.userDetails.UserProfileFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/userPostList"
+        android:name="com.hilali.finalproject.ui.userPostList.UserPostList"
+        android:label="fragment_user_post_list"
+        tools:layout="@layout/fragment_user_post_list" />
 </navigation>
