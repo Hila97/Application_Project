@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361031032685",
+    "project_id": "finalproject-hila-yael",
+    "storage_bucket": "finalproject-hila-yael.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361031032685:android:cec54d20fc8c0193798464",
+        "android_client_info": {
+          "package_name": "com.hilali.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361031032685-1frqn1e421sjm733d2njkpuav67pa3su.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaB5PrF_qTKjh13TgIgcsCDYHS_JkdzjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361031032685-1frqn1e421sjm733d2njkpuav67pa3su.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
