@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -27,4 +27,25 @@
         android:name="com.hilali.finalproject.ui.userPostList.UserPostList"
         android:label="MY DESIGNS"
         tools:layout="@layout/fragment_user_post_list" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.hilali.finalproject.ui.login.LoginFragment"
+        android:label="LOGIN"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.hilali.finalproject.ui.login.SignUpFragment"
+        android:label="SIGN UP"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

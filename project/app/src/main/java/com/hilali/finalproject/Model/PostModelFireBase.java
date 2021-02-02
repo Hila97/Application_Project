@@ -18,57 +18,78 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+public class PostModelFireBase {
+    public PostModelFireBase(){}
 
-public class UserModelFireBase {
-
-    public UserModelFireBase(){}
-
-    public static void getAllUsers(Model.GetAllUsersListener listener) {
+    public static void getAllPosts(Model.GetAllPostsListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-                    List<User> userList = new LinkedList<User>();
+                    List<Post> postList = new LinkedList<Post>();
                     for (QueryDocumentSnapshot doc: task.getResult()) {
-                        Log.d("TAG","user mail: " + doc.get("email"));
-                        User user = doc.toObject(User.class);
-                        userList.add(user);
+                        Log.d("TAG","post id: " + doc.get("pid"));
+                        Post post = doc.toObject(Post.class);
+                        postList.add(post);
                     }
-                    listener.onComplete(userList);
+                    listener.onComplete(postList);
                 }else{
-                    Log.d("TAG", "failed getting users from fb");
+                    Log.d("TAG", "failed getting posts from fb");
                     listener.onComplete(null);
                 }
             }
         });
     }
 
-    public static void getUserById(String id, Model.GetUserByIDsListener listener) {
+    public static void getAllUserPosts(String userId,Model.GetAllUserPostsListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            User user = task.getResult().toObject(User.class);
-                            listener.onComplete(user);
-                        }else{
-                            listener.onComplete(null);
-                        }
+        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    List<Post> postList = new LinkedList<Post>();
+                    for (QueryDocumentSnapshot doc: task.getResult()) {
+                        Log.d("TAG","post id: " + doc.get("pid"));
+                        Post post = doc.toObject(Post.class);
+                        if(post.getUserID().equals(userId))
+                            postList.add(post);
                     }
-                });
+                    listener.onComplete(postList);
+                }else{
+                    Log.d("TAG", "failed getting posts from fb");
+                    listener.onComplete(null);
+                }
+            }
+        });
     }
 
-    public static void addUser(User user, Model.AddUserListener listener) {
+    public static void getPost(String pid, Model.GetPostByIDsListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("posts").document(pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    Post post  = task.getResult().toObject(Post.class);
+                    listener.onComplete(post);
+                }else{
+                    listener.onComplete(null);
+                }
+            }
+        });
+    }
+
+    public static void addPost(Post post, Model.AddPostListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String,Object> data=new HashMap<String, Object>();
 
-        data.put("email",user.getEmail());
-        data.put("password",user.getPassword());
-        data.put("name",user.getName());
-        data.put("phone",user.getPhone());
+        data.put("pid",post.getPid());
+        data.put("userID",post.getUserID());
+        data.put("title",post.getTitle());
+        data.put("description",post.getDescription());
+        data.put("category",post.getCategory());
 
-        db.collection("users").document(user.getEmail()).set(data)
+        db.collection("posts").document(post.getPid()).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -85,10 +106,10 @@ public class UserModelFireBase {
                 });
     }
 
-    public static void UpdateUser(User user, Model.updateUserListener listener) {
+    public static void updatePost(Post post, Model.updatePostListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getEmail())
-                .set(user)
+        db.collection("posts").document(post.getPid())
+                .set(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -103,9 +124,9 @@ public class UserModelFireBase {
                 });
     }
 
-    public static void deleteUser(User user, Model.deleteUserListener listener) {
+    public static void deletePost(Post post, Model.deletePostListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getEmail())
+        db.collection("posts").document(post.getPid())
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -120,18 +141,11 @@ public class UserModelFireBase {
                     }
                 });
     }
-    public interface UploadProfileImageListener{
+
+    public interface UploadPostImageListener{
         public void onComplete(String url);
     }
-    public static void uploadProfileImage(Bitmap imageBmp, String fileName, UserModelFireBase.UploadProfileImageListener listener) {
+
+    public static void uploadPostImage(Bitmap imageBmp, String fileName, PostModelFireBase.UploadPostImageListener listener) {
     }
-
-
-    //public static void addUser(User user)
-
-
-
-
-
-
 }

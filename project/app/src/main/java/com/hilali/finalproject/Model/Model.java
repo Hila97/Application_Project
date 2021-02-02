@@ -9,6 +9,10 @@ public class Model {
     UserModelFireBase userModelFireBase=new UserModelFireBase();
     private Model(){}
 
+//////////////////////////////////////////////////////////////////////////////
+    //////user related acts/////
+//////////////////////////////////////////////////////////////////////////////
+
     public interface GetAllUsersListener{
         void onComplete(List<User> data);
     }
@@ -48,8 +52,66 @@ public class Model {
         UserModelFireBase.deleteUser(user,listener);
 
     }
-    public void uploadImage(Bitmap imageBmp, String fileName, final UserModelFireBase.UploadImageListener listener){
-        UserModelFireBase.uploadImage(imageBmp,fileName,listener);
+    public void uploadImage(Bitmap imageBmp, String fileName, final UserModelFireBase.UploadProfileImageListener listener){
+        UserModelFireBase.uploadProfileImage(imageBmp,fileName,listener);
     }
+
+
+    //////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////post related acts////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+
+    public interface GetAllPostsListener{
+        void onComplete(List<Post> data);
+    }
+    public void getAllPosts(final GetAllPostsListener listener) {
+        PostModelFireBase.getAllPosts(listener);
+    }
+    public interface GetAllUserPostsListener{
+        void onComplete(List<Post> data);
+    }
+    public void getAllUserPosts(final String userId,final GetAllUserPostsListener listener) {
+        PostModelFireBase.getAllUserPosts(userId,listener);
+    }
+
+    public interface GetPostByIDsListener{
+        void onComplete(Post post);
+    }
+    public Post getPostById(final String id, final GetPostByIDsListener listener){
+        PostModelFireBase.getPost(id,listener);
+        return null;
+
+    }
+
+    public interface AddPostListener{
+        void onComplete(boolean success);
+    }
+
+    public void addPost(final Post post, final AddPostListener listener){
+        PostModelFireBase.addPost(post,listener);
+
+    }
+    public interface updatePostListener{
+        void onComplete();
+    }
+
+    public void UpdatePost(final Post post, final updatePostListener listener) {
+        PostModelFireBase.updatePost(post,listener);
+
+    }
+
+    public interface deletePostListener{
+        void onComplete();
+    }
+    public void deletePost(final Post post, final deletePostListener listener){
+        PostModelFireBase.deletePost(post,listener);
+
+    }
+    public void uploadPostImage(Bitmap imageBmp, String fileName, final PostModelFireBase.UploadPostImageListener listener){
+        PostModelFireBase.uploadPostImage(imageBmp,fileName,listener);
+    }
+
 
 }

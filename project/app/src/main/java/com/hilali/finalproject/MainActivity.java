@@ -1,5 +1,5 @@
 package com.hilali.finalproject;
-
+//Get inspired to design your home
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;

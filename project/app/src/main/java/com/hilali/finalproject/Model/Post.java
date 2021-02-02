@@ -11,8 +11,8 @@ public class Post {
     private PostCategory category;
     private LocalDate postDate;
 
-    public Post(String pid, String userID, String title, String description, PostCategory category) {
-        this.pid = pid;
+    public Post( String userID, String title, String description, PostCategory category) {
+        //this.pid = pid;
         this.userID = userID;
         this.title = title;
         this.description = description;
