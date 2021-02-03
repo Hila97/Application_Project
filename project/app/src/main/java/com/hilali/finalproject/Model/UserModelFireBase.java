@@ -2,6 +2,7 @@ package com.hilali.finalproject.Model;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -9,6 +10,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,6 +26,23 @@ public class UserModelFireBase {
 
     public UserModelFireBase(){}
 
+    public static void CreateUser(String email,String password,Model.CreateUserListener listener)
+    {
+        FirebaseAuth fauth=FirebaseAuth.getInstance();
+        fauth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                    listener.onComplete(true);
+                else
+                    listener.onComplete(false);
+            }
+        });
+    }
+    public static void LoginUser(String email, String password, Model.LoginUserListener listener) {
+        FirebaseAuth fauth=FirebaseAuth.getInstance();
+        //fauth.
+    }
     public static void getAllUsers(Model.GetAllUsersListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -120,6 +140,9 @@ public class UserModelFireBase {
                     }
                 });
     }
+
+
+
     public interface UploadProfileImageListener{
         public void onComplete(String url);
     }

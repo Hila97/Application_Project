@@ -12,6 +12,20 @@ public class Model {
 //////////////////////////////////////////////////////////////////////////////
     //////user related acts/////
 //////////////////////////////////////////////////////////////////////////////
+    public interface CreateUserListener{
+        void onComplete(boolean success);
+    }
+    public void CreateUser(final String email,final String password,final CreateUserListener listener)
+    {
+        UserModelFireBase.CreateUser(email,password,listener);
+    }
+    public interface LoginUserListener{
+        void onComplete(boolean success);
+    }
+    public void LoginUser(final String email,final String password,final LoginUserListener listener)
+    {
+        UserModelFireBase.LoginUser(email,password,listener);
+    }
 
     public interface GetAllUsersListener{
         void onComplete(List<User> data);
