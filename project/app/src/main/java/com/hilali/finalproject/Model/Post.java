@@ -4,7 +4,7 @@ package com.hilali.finalproject.Model;
 import java.time.LocalDate;
 
 public class Post {
-    private String yael;
+    private String yoo;
     private String pid;
     private String userID;
     private String title;
