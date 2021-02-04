@@ -48,7 +48,7 @@ public class UserModelFireBase {
     public static String getUserID()
     {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
-        return fauth.getUid();
+        return fauth.getCurrentUser().getUid();
     }
     public static void LoginUser(String email, String password, Model.LoginUserListener listener) {
         FirebaseAuth fauth=FirebaseAuth.getInstance();

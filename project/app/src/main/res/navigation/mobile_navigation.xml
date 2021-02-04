@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.hilali.finalproject.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_add_design"
@@ -21,7 +25,11 @@
         android:id="@+id/nav_user_profile"
         android:name="com.hilali.finalproject.ui.userDetails.UserProfileFragment"
         android:label="MY PROFILE"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_nav_user_profile_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userPostList"
         android:name="com.hilali.finalproject.ui.userPostList.UserPostList"
@@ -48,4 +56,14 @@
             android:id="@+id/action_signUpFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.hilali.finalproject.ui.userDetails.EditProfileFragment"
+        android:label="EDIT PROFILE"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.hilali.finalproject.ui.home.PostDetailsFragment"
+        android:label="fragment_post_details"
+        tools:layout="@layout/fragment_post_details" />
 </navigation>
