@@ -10,6 +10,7 @@ public class User {
     private String phone;
     private String imageUrl;
 
+    public User() { }
 
     public User(String id, String email, String password, String name, String phone) {
         this.id = id;
