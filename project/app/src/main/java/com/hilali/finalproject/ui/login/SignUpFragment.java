@@ -36,8 +36,7 @@ public class SignUpFragment extends Fragment {
     EditText phoneET;
     Button signUpBtn;
     ProgressBar progressBar;
-    FirebaseAuth fauth;
-   // TextView  errorTV;
+    //FirebaseAuth fauth;
     
 
     @Override
@@ -109,12 +108,13 @@ public class SignUpFragment extends Fragment {
 
     private void saveUser(View view) {
         String email,password,name,phone;
+        //final String id;
 
         email=mailET.getText().toString();
         password=passwordET.getText().toString();
         name=nameET.getText().toString();
         phone=phoneET.getText().toString();
-        User user=new User(email,password,name,phone);
+        //User user=new User(email,password,name,phone);
         signUpBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
         Model.instance.CreateUser(email, password, new Model.CreateUserListener() {
@@ -123,6 +123,8 @@ public class SignUpFragment extends Fragment {
                 if(success==true)
                 {
                     Toast.makeText(view.getContext(),"user created",Toast.LENGTH_SHORT).show();
+                    final String id=Model.instance.getUserID();
+                    User user=new User(id,email,password,name,phone);
                     Model.instance.addUser(user, new Model.AddUserListener() {
                         @Override
                         public void onComplete(boolean success) {
@@ -130,8 +132,11 @@ public class SignUpFragment extends Fragment {
                         }
                     });
                 }
-                else
-                    Toast.makeText(view.getContext(),"ERROR",Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    signUpBtn.setEnabled(true);
+                }
             }
         });
     }

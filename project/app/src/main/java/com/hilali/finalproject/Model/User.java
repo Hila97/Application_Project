@@ -3,7 +3,7 @@ package com.hilali.finalproject.Model;
 
 public class User {
 
-    //private String id;
+    private String id;
     private String email;
     private String password;
     private String name;
@@ -11,8 +11,8 @@ public class User {
     private String imageUrl;
 
 
-    public User( String email, String password, String name, String phone) {
-        //this.id = id;
+    public User(String id, String email, String password, String name, String phone) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
@@ -24,11 +24,11 @@ public class User {
         return email;
     }
 
-    /*
+
     public String getId() {
         return id;
     }
-     */
+
 
     public String getPassword() {
         return password;

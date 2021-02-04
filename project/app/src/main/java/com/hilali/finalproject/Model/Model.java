@@ -26,6 +26,10 @@ public class Model {
     {
         UserModelFireBase.LoginUser(email,password,listener);
     }
+    public String getUserID()
+    {
+        return UserModelFireBase.getUserID();
+    }
 
     public interface GetAllUsersListener{
         void onComplete(List<User> data);
