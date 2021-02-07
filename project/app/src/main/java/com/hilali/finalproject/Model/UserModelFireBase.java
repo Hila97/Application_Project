@@ -50,6 +50,11 @@ public class UserModelFireBase {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
         return fauth.getCurrentUser().getUid();
     }
+    public static FirebaseUser getCurrentUser() {
+        FirebaseAuth fauth=FirebaseAuth.getInstance();
+        return fauth.getCurrentUser();
+    }
+
     public static void LoginUser(String email, String password, Model.LoginUserListener listener) {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
         fauth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -83,8 +88,10 @@ public class UserModelFireBase {
     }
 
     public static void getUserById(String id, Model.GetUserByIDsListener listener) {
+        //FirebaseAuth fauth=FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("users").document(id).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()){
@@ -100,13 +107,13 @@ public class UserModelFireBase {
     public static void addUser(User user, Model.AddUserListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String,Object> data=new HashMap<String, Object>();
-        data.put("uid",user.getId());
+        data.put("uid",user.getUid());
         data.put("email",user.getEmail());
         data.put("password",user.getPassword());
         data.put("name",user.getName());
         data.put("phone",user.getPhone());
 
-        db.collection("users").document(user.getId()).set(data)
+        db.collection("users").document(user.getUid()).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -125,25 +132,31 @@ public class UserModelFireBase {
 
     public static void UpdateUser(User user, Model.updateUserListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getId())
+        FirebaseAuth fauth=FirebaseAuth.getInstance();
+        FirebaseUser user1 = fauth.getCurrentUser();
+        db.collection("users").document(user.getUid())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("TAG", "DocumentSnapshot successfully written!");
+                        user1.updatePassword(user.getPassword());
+                        listener.onComplete(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("TAG", "Error writing document", e);
+                        listener.onComplete(false);
                     }
                 });
     }
 
     public static void deleteUser(User user, Model.deleteUserListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getId())
+        FirebaseAuth fauth=FirebaseAuth.getInstance();
+        db.collection("users").document(fauth.getUid())
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -8,39 +8,36 @@
 
     <ImageView
         android:id="@+id/mainlist_image"
-        android:layout_width="145dp"
-        android:layout_height="167dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="352dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/mainlist_title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainlist_username"
         app:srcCompat="@drawable/home_icon" />
 
     <TextView
-        android:id="@+id/mainlist_name"
+        android:id="@+id/mainlist_title"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="16dp"
         android:text="THE TITLE "
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toEndOf="@+id/mainlist_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainlist_image" />
 
     <TextView
-        android:id="@+id/mainlist_id"
-        android:layout_width="198dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/mainlist_username"
+        android:layout_width="236dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:text="the user name"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/mainlist_image"
-        app:layout_constraintTop_toBottomOf="@+id/mainlist_name" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

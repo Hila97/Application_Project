@@ -2,6 +2,8 @@ package com.hilali.finalproject.Model;
 
 import android.graphics.Bitmap;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.List;
 
 public class Model {
@@ -30,6 +32,10 @@ public class Model {
     {
         return UserModelFireBase.getUserID();
     }
+    public FirebaseUser getCurrentUser()
+    {
+        return UserModelFireBase.getCurrentUser();
+    }
 
     public interface GetAllUsersListener{
         void onComplete(List<User> data);
@@ -55,7 +61,7 @@ public class Model {
 
     }
     public interface updateUserListener{
-        void onComplete();
+        void onComplete(Boolean success);
     }
 
     public void UpdateUser(final User user, final updateUserListener listener) {

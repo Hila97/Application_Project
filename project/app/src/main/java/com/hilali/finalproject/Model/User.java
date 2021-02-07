@@ -1,35 +1,48 @@
 package com.hilali.finalproject.Model;
 
 
+import org.jetbrains.annotations.NotNull;
+
 public class User {
 
-    private String id;
+    private String uid;
     private String email;
     private String password;
     private String name;
     private String phone;
-    private String imageUrl;
+    //private String imageUrl;
+
+
 
     public User() { }
 
     public User(String id, String email, String password, String name, String phone) {
-        this.id = id;
+        this.uid = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.phone = phone;
         //this.imageUrl = imageUrl;
     }
+    public User(@NotNull User user)
+    {
+        this.uid = user.getUid();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.phone = user.getPhone();
+    }
+
+
 
     public String getEmail() {
         return email;
     }
 
 
-    public String getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
-
 
     public String getPassword() {
         return password;
@@ -43,16 +56,16 @@ public class User {
         return phone;
     }
 
-    public String getImageUrl() {
+  /*  public String getImageUrl() {
         return imageUrl;
     }
 
-    /*
-    public void setId(String id) {
-        this.id = id;
-    }
 
-     */
+   */
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -69,9 +82,11 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
+/*
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+ */
 
 }

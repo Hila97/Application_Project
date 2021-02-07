@@ -6,5 +6,6 @@ public enum PostCategory {
     KITCHEN,
     GARDEN,
     CHILDREN_ROOM,
+    OTHER,
     BATHROOM;
 }

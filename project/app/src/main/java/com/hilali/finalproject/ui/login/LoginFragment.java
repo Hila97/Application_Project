@@ -46,7 +46,7 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(verifyFields())
+                if(verifyFields(view))
                 {
                     LoginUser(view);
                 }
@@ -97,12 +97,22 @@ public class LoginFragment extends Fragment {
         }
         return false;
     }
-    private boolean verifyFields() {
+    private boolean verifyFields(View view) {
         if(!isETEmpty(mailET) && !isETEmpty(passwordET) )
         {
-            return true;
+            if(verifyPassword(view))
+                return true;
         }
         return false;
+    }
+    private boolean verifyPassword(View view) {
+        String p=passwordET.getText().toString();
+        if(p.length()<6) {
+            Toast toast = Toast.makeText(view.getContext(), "the password is at least 6 character", Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
+        }
+        return true;
     }
 
 }

@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 public class StartActivity extends AppCompatActivity {
     int progress = 0;
     //ProgressBar progressBar;
-    private static int TIME_OUT = 4000;
+    private static int TIME_OUT = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

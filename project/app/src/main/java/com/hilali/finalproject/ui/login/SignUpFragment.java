@@ -36,8 +36,6 @@ public class SignUpFragment extends Fragment {
     EditText phoneET;
     Button signUpBtn;
     ProgressBar progressBar;
-    //FirebaseAuth fauth;
-    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,13 +106,10 @@ public class SignUpFragment extends Fragment {
 
     private void saveUser(View view) {
         String email,password,name,phone;
-        //final String id;
-
         email=mailET.getText().toString();
         password=passwordET.getText().toString();
         name=nameET.getText().toString();
         phone=phoneET.getText().toString();
-        //User user=new User(email,password,name,phone);
         signUpBtn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
         Model.instance.CreateUser(email, password, new Model.CreateUserListener() {
@@ -122,12 +117,13 @@ public class SignUpFragment extends Fragment {
             public void onComplete(boolean success) {
                 if(success==true)
                 {
-                    Toast.makeText(view.getContext(),"user created",Toast.LENGTH_SHORT).show();
+
                     final String id=Model.instance.getUserID();
                     User user=new User(id,email,password,name,phone);
                     Model.instance.addUser(user, new Model.AddUserListener() {
                         @Override
                         public void onComplete(boolean success) {
+                            Toast.makeText(view.getContext(),"user created",Toast.LENGTH_SHORT).show();
                             Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_nav_home);
                         }
                     });
