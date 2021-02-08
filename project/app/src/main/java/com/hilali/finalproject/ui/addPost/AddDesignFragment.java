@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
@@ -65,6 +66,7 @@ public class AddDesignFragment extends Fragment {
             public void onClick(View v) {
                 savePost(v);
             }
+
         });
 
         return view;

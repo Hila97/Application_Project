@@ -19,7 +19,12 @@
         android:id="@+id/nav_add_design"
         android:name="com.hilali.finalproject.ui.addPost.AddDesignFragment"
         android:label="ADD NEW DESIGN"
-        tools:layout="@layout/fragment_add_design" />
+        tools:layout="@layout/fragment_add_design" >
+        <action
+            android:id="@+id/action_nav_add_design_pop"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_user_profile"

@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#BDB6B6"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,6 +53,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="EDIT PROFILE"
                 android:textSize="24sp"
+                android:textStyle="normal|bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,6 +79,7 @@
                 android:layout_marginTop="32dp"
                 android:text="PHONE:"
                 android:textSize="24sp"
+                android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -89,6 +92,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="64dp"
                 android:text="CANCEL"
+                app:backgroundTint="#786666"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/edit_profile_save_button"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,12 +100,13 @@
 
             <TextView
                 android:id="@+id/textView15"
-                android:layout_width="74dp"
-                android:layout_height="wrap_content"
+                android:layout_width="96dp"
+                android:layout_height="51dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="50dp"
                 android:text="NAME:"
                 android:textSize="24sp"
+                android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_profile_text" />
 
@@ -127,6 +132,7 @@
                 android:layout_marginTop="32dp"
                 android:text="PASSWORD:"
                 android:textSize="24sp"
+                android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_profile_email_ET" />
 
@@ -138,6 +144,7 @@
                 android:layout_marginTop="32dp"
                 android:text="EMAIL:"
                 android:textSize="24sp"
+                android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -148,6 +155,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="70dp"
                 android:text="SAVE"
+                app:backgroundTint="#786666"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_profile_cancel_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/edit_profile_cancel_button"
