@@ -32,6 +32,13 @@ public class Model {
     {
         return UserModelFireBase.getUserID();
     }
+    public  interface getUserNameListener{
+        void  onComplete(String name);
+    }
+    public String getUserName(String id, final getUserNameListener listener ){
+         UserModelFireBase.getUserName(id,listener);
+         return null;
+    }
     public FirebaseUser getCurrentUser()
     {
         return UserModelFireBase.getCurrentUser();

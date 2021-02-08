@@ -48,7 +48,6 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onComplete(User user) {
                 userNow=user;
-                // userNow.setId(user.getId());
                 EditProfile_NameEt.setText(userNow.getName());
                 EditProfile_EmailEt.setText(userNow.getEmail());
                 EditProfile_PhoneEt.setText(userNow.getPhone());

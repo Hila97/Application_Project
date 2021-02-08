@@ -51,19 +51,6 @@ public class UserProfileFragment extends Fragment {
                 phoneTV.setText(userNow.getPhone());
             }
         });
-        /*
-        FirebaseUser a=Model.instance.getCurrentUser();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName("Jane Q. User")
-                .build();
-        a.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d("TAG", "User profile updated.");
-                }
-            }
-        });*/
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override

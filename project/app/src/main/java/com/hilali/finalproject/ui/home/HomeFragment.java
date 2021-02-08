@@ -1,6 +1,7 @@
 package com.hilali.finalproject.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
+import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
 
 import java.util.LinkedList;
@@ -20,8 +22,10 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     List<Post> allData=new LinkedList<>();
+    List<String> allNames=new LinkedList<String>();
     ListView list;
     MyAdapter adapter;
+    String ownerName;
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -61,6 +65,19 @@ public class HomeFragment extends Fragment {
 
             }
             Post post=allData.get(i);
+            /*
+            Model.instance.getUserName(post.getUid(), new Model.getUserNameListener() {
+                @Override
+                public void onComplete(String name) {
+                    //ownerName=name;
+                    allNames.add(i,name);
+                    //adapter.notifyDataSetChanged();
+                   // usernameTV.setText(ownerName);
+                    //Log.d("TAG","the name is "+ name);
+                }
+            });
+
+             */
             TextView titleTV=view.findViewById(R.id.mainlist_title);
             titleTV.setText(post.getTitle());
             TextView usernameTV=view.findViewById(R.id.mainlist_username);

@@ -21,9 +21,8 @@
         android:label="ADD NEW DESIGN"
         tools:layout="@layout/fragment_add_design" >
         <action
-            android:id="@+id/action_nav_add_design_pop"
-            app:popUpTo="@id/nav_home"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_nav_add_design_to_userPostList"
+            app:destination="@id/userPostList" />
     </fragment>
 
     <fragment

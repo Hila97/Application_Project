@@ -84,6 +84,7 @@ public class AddDesignFragment extends Fragment {
                 if(success)
                 {
                     Toast.makeText(v.getContext(),"post created",Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(v).navigate(R.id.action_nav_add_design_to_userPostList);
 
                 }
                 else

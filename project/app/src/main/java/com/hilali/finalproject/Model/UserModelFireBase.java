@@ -24,11 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 public class UserModelFireBase {
-
     public UserModelFireBase(){}
 
-    public static void CreateUser(String email,String password,Model.CreateUserListener listener)
-    {
+    public static void CreateUser(String email,String password,Model.CreateUserListener listener) {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
         fauth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -39,17 +37,26 @@ public class UserModelFireBase {
                     listener.onComplete(false);
             }
         });
-        /*
-        FirebaseUser user = fauth.getCurrentUser();
-        user.updatePassword("1111111111");
-
-         */
     }
-    public static String getUserID()
-    {
+    public static String getUserID() {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
         return fauth.getCurrentUser().getUid();
     }
+
+    public static void getUserName(String id,Model.getUserNameListener listener ) {
+        Model.instance.getUserById(id, new Model.GetUserByIDsListener() {
+            @Override
+            public void onComplete(User user) {
+                final User user1=user;
+                listener.onComplete(user1.getName());
+            }
+        });
+    }
+
+
+
+
+
     public static FirebaseUser getCurrentUser() {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
         return fauth.getCurrentUser();
@@ -171,6 +178,7 @@ public class UserModelFireBase {
                     }
                 });
     }
+
 
 
 
