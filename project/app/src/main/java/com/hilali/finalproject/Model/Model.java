@@ -109,10 +109,16 @@ public class Model {
 
     }
 
+    public interface AddPostWithIDListener{
+        void onComplete(boolean success);
+    }
+    public void addPostWithID(final Post post,final AddPostWithIDListener listener){
+        PostModelFireBase.addPostWithID(post,listener);
+
+    }
     public interface AddPostListener{
         void onComplete(boolean success);
     }
-
     public void addPost(final Post post, final AddPostListener listener){
         PostModelFireBase.addPost(post,listener);
 

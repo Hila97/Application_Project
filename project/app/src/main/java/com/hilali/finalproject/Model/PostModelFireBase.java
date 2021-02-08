@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -52,7 +53,7 @@ public class PostModelFireBase {
                     for (QueryDocumentSnapshot doc: task.getResult()) {
                         Log.d("TAG","post id: " + doc.get("pid"));
                         Post post = doc.toObject(Post.class);
-                        if(post.getUserID().equals(userId))
+                        if(post.getUid().equals(userId))
                             postList.add(post);
                     }
                     listener.onComplete(postList);
@@ -84,7 +85,7 @@ public class PostModelFireBase {
         Map<String,Object> data=new HashMap<String, Object>();
 
         data.put("pid",post.getPid());
-        data.put("userID",post.getUserID());
+        data.put("uid",post.getUid());
         data.put("title",post.getTitle());
         data.put("description",post.getDescription());
         data.put("category",post.getCategory());
@@ -138,6 +139,35 @@ public class PostModelFireBase {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("TAG", "Error deleting document", e);
+                    }
+                });
+    }
+
+    public static void addPostWithID(Post post, Model.AddPostWithIDListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference ref = db.collection("posts").document();
+       // String myId = ref.id;
+        String pid=ref.getId();
+        Map<String,Object> data=new HashMap<String, Object>();
+        data.put("pid",pid);
+        data.put("uid",post.getUid());
+        data.put("title",post.getTitle());
+        data.put("description",post.getDescription());
+        data.put("category",post.getCategory());
+
+        db.collection("posts").document(pid).set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                        listener.onComplete(true);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error writing document", e);
+                        listener.onComplete(false);
                     }
                 });
     }

@@ -1,25 +1,23 @@
 package com.hilali.finalproject.Model;
 
 
-import java.time.LocalDate;
 
 public class Post {
     private String pid;
-    private String userID;
+    private String uid;
     private String title;
     private String description;
     private PostCategory category;
-    private LocalDate postDate;
+   // private LocalDate postDate;
 
     public Post() { }
 
-    public Post(String userID, String title, String description, PostCategory category) {
+    public Post(String uid, String title, String description, PostCategory category) {
         //this.pid = pid;
-        this.userID = userID;
+        this.uid = uid;
         this.title = title;
         this.description = description;
         this.category = category;
-        //this.postDate=LocalDate.now();
     }
 
     public String getPid() {
@@ -30,12 +28,12 @@ public class Post {
         this.pid = pid;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getTitle() {

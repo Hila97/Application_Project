@@ -11,10 +11,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.hilali.finalproject.Model.Model;
+import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.PostCategory;
 import com.hilali.finalproject.R;
 
@@ -57,8 +60,36 @@ public class AddDesignFragment extends Fragment {
         });
 
         addBtn=view.findViewById(R.id.addpost_addBtn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                savePost(v);
+            }
+        });
 
         return view;
+    }
+
+    private void savePost(View v) {
+        String title,description;
+        final String uid= Model.instance.getUserID();
+        title=titleET.getText().toString();
+        description=descriptionET.getText().toString();
+        Post post=new Post(uid,title,description,postCategory);
+        Model.instance.addPostWithID(post, new Model.AddPostWithIDListener() {
+            @Override
+            public void onComplete(boolean success) {
+                if(success)
+                {
+                    Toast.makeText(v.getContext(),"post created",Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                    Toast.makeText(v.getContext(),"error",Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
     }
 
     private PostCategory categoryPick(int position) {

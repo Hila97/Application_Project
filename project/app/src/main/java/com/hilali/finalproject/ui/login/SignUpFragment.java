@@ -117,7 +117,6 @@ public class SignUpFragment extends Fragment {
             public void onComplete(boolean success) {
                 if(success==true)
                 {
-
                     final String id=Model.instance.getUserID();
                     User user=new User(id,email,password,name,phone);
                     Model.instance.addUser(user, new Model.AddUserListener() {
