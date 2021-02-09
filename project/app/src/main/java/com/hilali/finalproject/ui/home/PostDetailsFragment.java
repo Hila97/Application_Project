@@ -21,7 +21,8 @@ import com.hilali.finalproject.R;
 public class PostDetailsFragment extends Fragment {
     TextView userPost;
     TextView titleOfPost;
-    TextView descripOfPost;
+    TextView describeOfPost;
+    TextView postCategory;
     Button editPost_btn ;
     ImageView imageOnPost;
     Post post;
@@ -33,21 +34,23 @@ public class PostDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_post_details, container, false);
         String pid=PostDetailsFragmentArgs.fromBundle(getArguments()).getPid();
-        Log.d("TAG","post id is "+pid);
+
         userPost=view.findViewById(R.id.postDetails_username_text);
         titleOfPost=view.findViewById(R.id.postDetails_title_text);
-        descripOfPost=view.findViewById(R.id.postDetails_Description_text);
+        describeOfPost =view.findViewById(R.id.postDetails_Description_text);
+        postCategory=view.findViewById(R.id.post_details_category);
+        imageOnPost=view.findViewById(R.id.postdetalis_image);
         editPost_btn=view.findViewById(R.id.postDetails_editpost_btn);
         editPost_btn.setEnabled(false);
-        imageOnPost=view.findViewById(R.id.postdetalis_image);
 
         Model.instance.getPostById(pid, new Model.GetPostByIDsListener() {
             @Override
             public void onComplete(Post post1) {
                 post=post1;
-                userPost.setText(post.getUid());
+                setOwnerName(post.getUid());
                 titleOfPost.setText(post.getTitle());
-                descripOfPost.setText(post.getDescription());
+                describeOfPost.setText(post.getDescription());
+                postCategory.setText(post.getCategory().toString());
                 final String uid=Model.instance.getUserID();
                 String uid2=post.getUid();
                 if(uid.equals(uid2))
@@ -63,10 +66,17 @@ public class PostDetailsFragment extends Fragment {
                 PostDetailsFragmentDirections.ActionPostDetailsFragmentToEditPostFragment action = PostDetailsFragmentDirections.actionPostDetailsFragmentToEditPostFragment(pid);
                 Navigation.findNavController(view).navigate(action);
             }
-
-
         });
 
         return view;
+    }
+
+    private void setOwnerName(String uid) {
+        Model.instance.getUserName(uid, new Model.getUserNameListener() {
+            @Override
+            public void onComplete(String name) {
+                userPost.setText(name);
+            }
+        });
     }
 }

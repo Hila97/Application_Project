@@ -16,17 +16,17 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.PostCategory;
-import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
 import com.hilali.finalproject.ui.home.PostDetailsFragmentArgs;
 
 
 public class EditPostFragment extends Fragment {
     EditText title_ET;
-    EditText descrip_ET;
+    EditText describe_ET;
     ImageButton addImg_btn ;
     Button save_btn;
     Button cancel_btn;
@@ -48,13 +48,17 @@ public class EditPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_post, container, false);
+        String pid= PostDetailsFragmentArgs.fromBundle(getArguments()).getPid();
+
         title_ET=view.findViewById(R.id.editPost_title);
-        descrip_ET=view.findViewById(R.id.editPost_descrip);
+        describe_ET =view.findViewById(R.id.editPost_descrip);
         addImg_btn=view.findViewById(R.id.editPost_imgBtn);
         save_btn=view.findViewById(R.id.editPost_save_btn);
         cancel_btn=view.findViewById(R.id.editPost_cancel_btn);
+        categorySpinner_EP=view.findViewById(R.id.editPost_category);
 
-        categorySpinner_EP=view.findViewById(R.id.editPost_category); ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner_EP.setAdapter(adapter);
         categorySpinner_EP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -68,39 +72,18 @@ public class EditPostFragment extends Fragment {
             }
         });
 
-
-
-        String pid= PostDetailsFragmentArgs.fromBundle(getArguments()).getPid();
         Model.instance.getPostById(pid, new Model.GetPostByIDsListener() {
             @Override
             public void onComplete(Post post) {
                 postNow=post;
                 title_ET.setText(postNow.getTitle());
-                descrip_ET.setText(postNow.getDescription());
-
+                describe_ET.setText(postNow.getDescription());
             }
         });
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                postNow.setTitle(title_ET.getText().toString());
-                postNow.setDescription(descrip_ET.getText().toString());
-                Model.instance.UpdatePost(postNow, new Model.updatePostListener() {
-                    @Override
-                    public void onComplete(Boolean success) {
-                        if(success){
-                            Toast.makeText(view.getContext(),"post updated",Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(view).popBackStack();
-                        }
-                        else
-                            Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-            }
+            public void onClick(View view) { updatePost(view); }
         });
 
        cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -114,14 +97,32 @@ public class EditPostFragment extends Fragment {
 
     }
 
+    private void updatePost(View view) {
+        postNow.setTitle(title_ET.getText().toString());
+        postNow.setDescription(describe_ET.getText().toString());
+        postNow.setCategory(postCategory);
+        Model.instance.UpdatePost(postNow, new Model.updatePostListener() {
+            @Override
+            public void onComplete(Boolean success) {
+                if(success){
+                    Toast.makeText(view.getContext(),"post updated",Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(view).popBackStack();
+                }
+                else
+                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
     private PostCategory categoryPick(int position) {
         switch (position){
             case 0: return PostCategory.LIVING_ROOM;
             case 1: return  PostCategory.BEDROOM;
-            case 3: return PostCategory.KITCHEN;
-            case 4: return PostCategory.CHILDREN_ROOM;
-            case 5: return PostCategory.BATHROOM;
-            case 6: return PostCategory.GARDEN;
+            case 2: return PostCategory.KITCHEN;
+            case 3: return PostCategory.CHILDREN_ROOM;
+            case 4: return PostCategory.BATHROOM;
+            case 5: return PostCategory.GARDEN;
         }
         return PostCategory.OTHER;
     }
