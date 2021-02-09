@@ -81,11 +81,18 @@ public class EditPostFragment extends Fragment {
             }
         });
 
+
+        //SAVE BUTTON
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { updatePost(view); }
+            public void onClick(View view) {
+                if(verifyFields())
+                    updatePost(view);
+            }
         });
 
+
+        //CANCEL BUTTON
        cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +104,32 @@ public class EditPostFragment extends Fragment {
 
     }
 
+
+
+
+
+    // isEmpty FUNC
+    public boolean isETEmpty(EditText et) {
+        if (et.getText().toString().equals("") || et.getText().toString().equals(" ")) {
+            et.setError("required");
+            return true;
+        }
+        return false;
+    }
+
+    //verifyFields FUNC
+    private boolean verifyFields() {
+        EditText title,description;
+        title= title_ET;
+        description=describe_ET;
+
+        if (!isETEmpty(title) && !isETEmpty(description)) {
+            return true;
+        }
+        return false;
+    }
+
+    //updatePost FUNC
     private void updatePost(View view) {
         postNow.setTitle(title_ET.getText().toString());
         postNow.setDescription(describe_ET.getText().toString());
@@ -115,6 +148,7 @@ public class EditPostFragment extends Fragment {
         });
     }
 
+    //categoryPick FUNC
     private PostCategory categoryPick(int position) {
         switch (position){
             case 0: return PostCategory.LIVING_ROOM;
