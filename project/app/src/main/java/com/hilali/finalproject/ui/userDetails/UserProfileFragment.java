@@ -27,7 +27,6 @@ public class UserProfileFragment extends Fragment {
     TextView phoneTV;
     Button editBtn;
     User userNow;
-   // String uid;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,13 +50,7 @@ public class UserProfileFragment extends Fragment {
                 phoneTV.setText(userNow.getPhone());
             }
         });
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_user_profile_to_editProfileFragment);
-            }
-        });
+        editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_nav_user_profile_to_editProfileFragment));
 
 
         return view;

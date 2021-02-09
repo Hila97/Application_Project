@@ -4,10 +4,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,6 +20,7 @@ import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.R;
 import com.hilali.finalproject.ui.home.HomeFragment;
+import com.hilali.finalproject.ui.userDetails.UserProfileFragmentDirections;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +38,14 @@ public class UserPostList extends Fragment {
         list = view.findViewById(R.id.mainlistfragment_listview);
         adapter = new MyAdapter();
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Log.d("TAG","post id"+i);
+                UserPostListDirections.ActionUserPostListToPostDetailsFragment action= UserPostListDirections.actionUserPostListToPostDetailsFragment(myData.get(i).getPid());
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
         return view;
     }
 

@@ -38,7 +38,11 @@
         android:id="@+id/userPostList"
         android:name="com.hilali.finalproject.ui.userPostList.UserPostList"
         android:label="MY DESIGNS"
-        tools:layout="@layout/fragment_user_post_list" />
+        tools:layout="@layout/fragment_user_post_list" >
+        <action
+            android:id="@+id/action_userPostList_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.hilali.finalproject.ui.login.LoginFragment"
@@ -64,10 +68,19 @@
         android:id="@+id/editProfileFragment"
         android:name="com.hilali.finalproject.ui.userDetails.EditProfileFragment"
         android:label="EDIT PROFILE"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_pop"
+            app:popUpTo="@id/nav_user_profile"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.hilali.finalproject.ui.home.PostDetailsFragment"
         android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" />
+        tools:layout="@layout/fragment_post_details" >
+        <argument
+            android:name="pid"
+            app:argType="string" />
+    </fragment>
 </navigation>

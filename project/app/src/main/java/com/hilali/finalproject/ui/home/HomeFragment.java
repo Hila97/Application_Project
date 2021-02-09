@@ -5,12 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
@@ -32,6 +34,14 @@ public class HomeFragment extends Fragment {
         list=view.findViewById(R.id.mainlistfragment_listview);
         adapter=new MyAdapter();
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Log.d("TAG","post id"+i);
+                HomeFragmentDirections.ActionNavHomeToPostDetailsFragment action = HomeFragmentDirections.actionNavHomeToPostDetailsFragment(allData.get(i).getPid());
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
 
         return view;
     }
