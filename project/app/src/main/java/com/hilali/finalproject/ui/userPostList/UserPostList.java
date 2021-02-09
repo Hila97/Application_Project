@@ -44,6 +44,7 @@ public class UserPostList extends Fragment {
                 Log.d("TAG","post id"+i);
                 UserPostListDirections.ActionUserPostListToPostDetailsFragment action= UserPostListDirections.actionUserPostListToPostDetailsFragment(myData.get(i).getPid());
                 Navigation.findNavController(view).navigate(action);
+
             }
         });
         return view;

@@ -3,6 +3,7 @@ package com.hilali.finalproject.ui.home;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,15 @@ public class PostDetailsFragment extends Fragment {
             }
         });
 
+        editPost_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PostDetailsFragmentDirections.ActionPostDetailsFragmentToEditPostFragment action = PostDetailsFragmentDirections.actionPostDetailsFragmentToEditPostFragment(pid);
+                Navigation.findNavController(view).navigate(action);
+            }
+
+
+        });
 
         return view;
     }

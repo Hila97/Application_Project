@@ -115,12 +115,14 @@ public class PostModelFireBase {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("TAG", "DocumentSnapshot successfully written!");
+                        listener.onComplete(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("TAG", "Error writing document", e);
+                        listener.onComplete(false);
                     }
                 });
     }

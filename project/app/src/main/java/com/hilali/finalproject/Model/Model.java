@@ -131,7 +131,7 @@ public class Model {
 
     }
     public interface updatePostListener{
-        void onComplete();
+        void onComplete(Boolean success); //לבדוק
     }
 
     public void UpdatePost(final Post post, final updatePostListener listener) {

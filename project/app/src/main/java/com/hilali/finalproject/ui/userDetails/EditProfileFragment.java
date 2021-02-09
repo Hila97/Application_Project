@@ -34,13 +34,13 @@ public class EditProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_edit_profile, container, false);
         textViewEditTittle=view.findViewById(R.id.edit_profile_text);
-        EditProfile_NameEt = view.findViewById(R.id.edit_profile_name_ET);
+        EditProfile_NameEt = view.findViewById(R.id.edit_post_titlepost_ET);
         EditProfile_EmailEt = view.findViewById(R.id.edit_profile_email_ET);
-        EditProfile_PhoneEt = view.findViewById(R.id.edit_profile_phone_ET);
+        EditProfile_PhoneEt = view.findViewById(R.id.edit_post_descrip_ET);
         EditProfile_PasswordEt = view.findViewById(R.id.edit_profile_password_ET);
 
-        EditProfile_saveBtn = view.findViewById(R.id.edit_profile_save_button);
-        EditProfile_cancelBtn = view.findViewById(R.id.edit_profile_cancel_button);
+        EditProfile_saveBtn = view.findViewById(R.id.edit_post_save_button);
+        EditProfile_cancelBtn = view.findViewById(R.id.edit_post_cancel_button);
 
 
         final String uid=Model.instance.getUserID();
