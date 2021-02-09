@@ -75,19 +75,6 @@ public class HomeFragment extends Fragment {
 
             }
             Post post=allData.get(i);
-            /*
-            Model.instance.getUserName(post.getUid(), new Model.getUserNameListener() {
-                @Override
-                public void onComplete(String name) {
-                    //ownerName=name;
-                    allNames.add(i,name);
-                    //adapter.notifyDataSetChanged();
-                   // usernameTV.setText(ownerName);
-                    //Log.d("TAG","the name is "+ name);
-                }
-            });
-
-             */
             TextView titleTV=view.findViewById(R.id.mainlist_title);
             titleTV.setText(post.getTitle());
             TextView usernameTV=view.findViewById(R.id.mainlist_username);

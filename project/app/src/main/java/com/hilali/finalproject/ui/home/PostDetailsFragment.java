@@ -47,7 +47,7 @@ public class PostDetailsFragment extends Fragment {
             @Override
             public void onComplete(Post post1) {
                 post=post1;
-                userPost.setText(post.getUid());
+                setOwnerName(post.getUid());
                 titleOfPost.setText(post.getTitle());
                 describeOfPost.setText(post.getDescription());
                 postCategory.setText(post.getCategory().toString());
@@ -66,10 +66,17 @@ public class PostDetailsFragment extends Fragment {
                 PostDetailsFragmentDirections.ActionPostDetailsFragmentToEditPostFragment action = PostDetailsFragmentDirections.actionPostDetailsFragmentToEditPostFragment(pid);
                 Navigation.findNavController(view).navigate(action);
             }
-
-
         });
 
         return view;
+    }
+
+    private void setOwnerName(String uid) {
+        Model.instance.getUserName(uid, new Model.getUserNameListener() {
+            @Override
+            public void onComplete(String name) {
+                userPost.setText(name);
+            }
+        });
     }
 }
