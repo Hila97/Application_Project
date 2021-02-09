@@ -99,10 +99,10 @@ public class AddDesignFragment extends Fragment {
         switch (position){
             case 0: return PostCategory.LIVING_ROOM;
             case 1: return  PostCategory.BEDROOM;
-            case 3: return PostCategory.KITCHEN;
-            case 4: return PostCategory.CHILDREN_ROOM;
-            case 5: return PostCategory.BATHROOM;
-            case 6: return PostCategory.GARDEN;
+            case 2: return PostCategory.KITCHEN;
+            case 3: return PostCategory.CHILDREN_ROOM;
+            case 4: return PostCategory.BATHROOM;
+            case 5: return PostCategory.GARDEN;
         }
         return PostCategory.OTHER;
     }

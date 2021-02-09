@@ -77,8 +77,8 @@
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.hilali.finalproject.ui.home.PostDetailsFragment"
-        android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" >
+        android:label="DESIGN DETAILS"
+        tools:layout="@layout/fragment_post_details">
         <argument
             android:name="pid"
             app:argType="string" />
@@ -94,5 +94,9 @@
         <argument
             android:name="pid"
             app:argType="string" />
+        <action
+            android:id="@+id/action_editPostFragment_pop"
+            app:popUpTo="@id/postDetailsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
