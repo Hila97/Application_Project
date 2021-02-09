@@ -72,6 +72,10 @@ public class SignUpFragment extends Fragment {
         });
         return view;
     }
+
+
+
+
     public boolean isETEmpty(EditText et){
         if( et.getText().toString().equals("") || et.getText().toString().equals(" "))
         {

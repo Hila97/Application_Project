@@ -19,11 +19,10 @@ import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
 
 public class EditProfileFragment extends Fragment {
-    TextView textViewEditTittle ;
+    TextView textViewEditTittle;
     EditText EditProfile_NameEt;
-    EditText EditProfile_EmailEt ;
     EditText EditProfile_PhoneEt;
-    EditText EditProfile_PasswordEt ;
+    EditText EditProfile_PasswordEt;
     Button EditProfile_saveBtn;
     Button EditProfile_cancelBtn;
     User userNow;
@@ -32,10 +31,9 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_edit_profile, container, false);
-        textViewEditTittle=view.findViewById(R.id.edit_profile_text);
+        View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        textViewEditTittle = view.findViewById(R.id.edit_profile_text);
         EditProfile_NameEt = view.findViewById(R.id.edit_post_titlepost_ET);
-        EditProfile_EmailEt = view.findViewById(R.id.edit_profile_email_ET);
         EditProfile_PhoneEt = view.findViewById(R.id.edit_post_descrip_ET);
         EditProfile_PasswordEt = view.findViewById(R.id.edit_profile_password_ET);
 
@@ -43,16 +41,21 @@ public class EditProfileFragment extends Fragment {
         EditProfile_cancelBtn = view.findViewById(R.id.edit_post_cancel_button);
 
 
-        final String uid=Model.instance.getUserID();
+        final String uid = Model.instance.getUserID();
         Model.instance.getUserById(uid, new Model.GetUserByIDsListener() {
             @Override
             public void onComplete(User user) {
-                userNow=user;
+                userNow = user;
                 EditProfile_NameEt.setText(userNow.getName());
-                EditProfile_EmailEt.setText(userNow.getEmail());
                 EditProfile_PhoneEt.setText(userNow.getPhone());
                 EditProfile_PasswordEt.setText(userNow.getPassword());
 
+            }
+        });
+        EditProfile_cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).popBackStack();
             }
         });
 
@@ -60,33 +63,70 @@ public class EditProfileFragment extends Fragment {
         EditProfile_saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                userNow.setName(EditProfile_NameEt.getText().toString());
-                userNow.setEmail(EditProfile_EmailEt.getText().toString());
-                userNow.setPhone(EditProfile_PhoneEt.getText().toString());
-                userNow.setPassword(EditProfile_PasswordEt.getText().toString());
-                Model.instance.UpdateUser(userNow, new Model.updateUserListener() {
-                    @Override
-                    public void onComplete(Boolean success) {
-                        if(success)
-                            Navigation.findNavController(view).popBackStack();
-                        else
-                            Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                //בדיקת קלט
+                if(verifyFields())
+                {
+                    if(verifyPassword(view))
+                        UpdateProfile(view);
+                }
             }
         });
 
-        EditProfile_cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
-
-            }
-        });
 
 
         return view;
     }
+
+
+
+
+
+    public boolean isETEmpty(EditText et) {
+        if (et.getText().toString().equals("") || et.getText().toString().equals(" ")) {
+            et.setError("required");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean verifyFields() {
+        EditText password,name,phone;
+        password= EditProfile_PasswordEt;
+        name=EditProfile_NameEt;
+        phone=EditProfile_PhoneEt;
+
+        if (!isETEmpty(password) && !isETEmpty(name) && !isETEmpty(phone)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean verifyPassword(View view) {
+        String p = EditProfile_PasswordEt.getText().toString();
+        if (p.length() < 6) {
+            Toast toast = Toast.makeText(view.getContext(), "the password is at least 6 character", Toast.LENGTH_SHORT);
+            toast.show();
+            return false;
+        }
+        return true;
+    }
+
+
+    private void UpdateProfile(View view) {
+        userNow.setName(EditProfile_NameEt.getText().toString());
+        userNow.setPhone(EditProfile_PhoneEt.getText().toString());
+        userNow.setPassword(EditProfile_PasswordEt.getText().toString());
+        Model.instance.UpdateUser(userNow, new Model.updateUserListener() {
+            @Override
+            public void onComplete(Boolean success) {
+                if (success)
+                    Navigation.findNavController(view).popBackStack();
+                else
+                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
 }
