@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.PostCategory;
@@ -28,8 +27,9 @@ public class EditPostFragment extends Fragment {
     EditText title_ET;
     EditText describe_ET;
     ImageButton addImg_btn ;
-    Button save_btn;
-    Button cancel_btn;
+    ImageButton save_btn;
+    ImageButton cancel_btn;
+    ImageButton delete_btn;
     Post postNow;
     Spinner categorySpinner_EP;
     PostCategory postCategory;
@@ -55,6 +55,7 @@ public class EditPostFragment extends Fragment {
         addImg_btn=view.findViewById(R.id.editPost_imgBtn);
         save_btn=view.findViewById(R.id.editPost_save_btn);
         cancel_btn=view.findViewById(R.id.editPost_cancel_btn);
+        delete_btn=view.findViewById(R.id.editPost_delete_btn);
         categorySpinner_EP=view.findViewById(R.id.editPost_category);
 
 
@@ -100,12 +101,18 @@ public class EditPostFragment extends Fragment {
             }
         });
 
+       delete_btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               deletePost(view);
+           }
+       });
+
+
+
         return  view;
 
     }
-
-
-
 
 
     // isEmpty FUNC
@@ -147,6 +154,38 @@ public class EditPostFragment extends Fragment {
             }
         });
     }
+
+
+
+
+
+    //delete Post FUNC
+    private void deletePost(View view) {
+
+        Model.instance.deletePost(postNow, new Model.deletePostListener() {
+            @Override
+            public void onComplete(Boolean success) {
+                if(success){
+                    Toast.makeText(view.getContext(),"post deleted",Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(view).popBackStack();
+                }
+                else
+                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+    }
+
+
+
+
+
+
+
+
 
     //categoryPick FUNC
     private PostCategory categoryPick(int position) {

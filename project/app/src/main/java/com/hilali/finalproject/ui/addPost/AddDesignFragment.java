@@ -64,12 +64,37 @@ public class AddDesignFragment extends Fragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savePost(v);
+                if(verifyFields())
+                    savePost(v);
             }
 
         });
 
         return view;
+    }
+
+
+
+
+    // isEmpty FUNC
+    public boolean isETEmpty(EditText et) {
+        if (et.getText().toString().equals("") || et.getText().toString().equals(" ")) {
+            et.setError("required");
+            return true;
+        }
+        return false;
+    }
+
+    //verifyFields FUNC
+    private boolean verifyFields() {
+        EditText title,description;
+        title= titleET;
+        description=descriptionET;
+
+        if (!isETEmpty(title) && !isETEmpty(description)) {
+            return true;
+        }
+        return false;
     }
 
     private void savePost(View v) {
@@ -94,6 +119,7 @@ public class AddDesignFragment extends Fragment {
 
         });
     }
+
 
     private PostCategory categoryPick(int position) {
         switch (position){

@@ -135,13 +135,16 @@ public class PostModelFireBase {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                        listener.onComplete(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("TAG", "Error deleting document", e);
+                        listener.onComplete(false);
                     }
+
                 });
     }
 

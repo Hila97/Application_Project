@@ -140,7 +140,7 @@ public class Model {
     }
 
     public interface deletePostListener{
-        void onComplete();
+        void onComplete(Boolean success);
     }
     public void deletePost(final Post post, final deletePostListener listener){
         PostModelFireBase.deletePost(post,listener);
