@@ -17,6 +17,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ProgressBar
+                android:id="@+id/progBar_editProfile"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="155dp"
+                android:layout_height="129dp"
+
+                android:scrollbarStyle="insideInset"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.464"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.475" />
+
             <EditText
                 android:id="@+id/edit_post_descrip_ET"
                 android:layout_width="0dp"

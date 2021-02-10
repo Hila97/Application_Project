@@ -48,6 +48,7 @@ public class LoginFragment extends Fragment {
         progressBar=view.findViewById(R.id.login_progressBar);
         loginBtn=view.findViewById(R.id.login_loginbtn);
         signUpBtn=view.findViewById(R.id.login_sigup_btn);
+        progressBar.setVisibility(View.INVISIBLE);//הוספתי
 
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,7 @@ public class LoginFragment extends Fragment {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);//הוספתי
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signUpFragment);
             }
         });
@@ -88,7 +90,7 @@ public class LoginFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(view.getContext(),"ERROR",Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
+                   // progressBar.setVisibility(View.INVISIBLE);
                     loginBtn.setEnabled(true);
                     signUpBtn.setEnabled(true);
                 }

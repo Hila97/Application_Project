@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class EditProfileFragment extends Fragment {
     EditText EditProfile_PasswordEt;
     Button EditProfile_saveBtn;
     Button EditProfile_cancelBtn;
+    ProgressBar progBar_editProfile;
     User userNow;
 
     @Override
@@ -36,9 +38,10 @@ public class EditProfileFragment extends Fragment {
         EditProfile_NameEt = view.findViewById(R.id.edit_post_titlepost_ET);
         EditProfile_PhoneEt = view.findViewById(R.id.edit_post_descrip_ET);
         EditProfile_PasswordEt = view.findViewById(R.id.edit_profile_password_ET);
-
         EditProfile_saveBtn = view.findViewById(R.id.edit_post_save_button);
         EditProfile_cancelBtn = view.findViewById(R.id.edit_post_cancel_button);
+        progBar_editProfile=view.findViewById(R.id.progBar_editProfile);
+        progBar_editProfile.setVisibility(View.INVISIBLE);
 
 
         final String uid = Model.instance.getUserID();
@@ -113,6 +116,7 @@ public class EditProfileFragment extends Fragment {
 
 
     private void UpdateProfile(View view) {
+        progBar_editProfile.setVisibility(View.VISIBLE);
         userNow.setName(EditProfile_NameEt.getText().toString());
         userNow.setPhone(EditProfile_PhoneEt.getText().toString());
         userNow.setPassword(EditProfile_PasswordEt.getText().toString());

@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,8 +32,10 @@ public class EditPostFragment extends Fragment {
     ImageButton save_btn;
     ImageButton cancel_btn;
     ImageButton delete_btn;
+    ProgressBar progBar_editPost;
     Post postNow;
     Spinner categorySpinner_EP;
+
     PostCategory postCategory;
     static String[] categories = new String[]{PostCategory.LIVING_ROOM.toString(),
             PostCategory.BEDROOM.toString(),
@@ -58,7 +61,8 @@ public class EditPostFragment extends Fragment {
         cancel_btn=view.findViewById(R.id.editPost_cancel_btn);
         delete_btn=view.findViewById(R.id.editPost_delete_btn);
         categorySpinner_EP=view.findViewById(R.id.editPost_category);
-
+        progBar_editPost=view.findViewById(R.id.progBar_editPost);
+        progBar_editPost.setVisibility(View.INVISIBLE);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -144,6 +148,7 @@ public class EditPostFragment extends Fragment {
 
     //updatePost FUNC
     private void updatePost(View view) {
+        progBar_editPost.setVisibility(View.VISIBLE);
         postNow.setTitle(title_ET.getText().toString());
         postNow.setDescription(describe_ET.getText().toString());
         postNow.setCategory(postCategory);
@@ -151,6 +156,7 @@ public class EditPostFragment extends Fragment {
             @Override
             public void onComplete(Boolean success) {
                 if(success){
+
                     Toast.makeText(view.getContext(),"post updated",Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(view).popBackStack();
                 }
@@ -167,13 +173,14 @@ public class EditPostFragment extends Fragment {
 
     //delete Post FUNC
     private void deletePost(View view) {
-
+        progBar_editPost.setVisibility(View.VISIBLE);
         Model.instance.deletePost(postNow, new Model.deletePostListener() {
             @Override
             public void onComplete(Boolean success) {
                 if(success){
+
                     Toast.makeText(view.getContext(),"post deleted",Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).popBackStack();
+                    Navigation.findNavController(view).navigate(R.id.action_editPostFragment_to_userPostList);
                 }
                 else
                     Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();

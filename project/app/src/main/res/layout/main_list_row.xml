@@ -8,15 +8,16 @@
 
     <ImageView
         android:id="@+id/mainlist_image"
-        android:layout_width="407dp"
-        android:layout_height="184dp"
+        android:layout_width="415dp"
+        android:layout_height="181dp"
         android:layout_marginTop="1dp"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@+id/mainlist_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainlist_username"
-        app:srcCompat="@drawable/home_icon" />
+        app:srcCompat="@drawable/picture" />
 
     <TextView
         android:id="@+id/mainlist_title"
@@ -25,6 +26,7 @@
         android:layout_marginStart="16dp"
         android:text="THE TITLE "
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainlist_image" />
@@ -36,7 +38,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:text="the user name"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

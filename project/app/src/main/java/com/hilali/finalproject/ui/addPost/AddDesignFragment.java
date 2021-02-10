@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +28,10 @@ public class AddDesignFragment extends Fragment {
     EditText titleET;
     EditText descriptionET;
     Button addBtn;
+    ProgressBar progBar_addDes;
     Spinner categorySpinner;
     PostCategory postCategory;
+
     static String[] categories = new String[]{PostCategory.LIVING_ROOM.toString(),
             PostCategory.BEDROOM.toString(),
             PostCategory.KITCHEN.toString(),
@@ -42,6 +45,9 @@ public class AddDesignFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_add_design, container, false);
+        progBar_addDes=view.findViewById(R.id.progBar_addDes);
+        progBar_addDes.setVisibility(View.INVISIBLE);
+
         addImg=view.findViewById(R.id.addpost_imgBtn);
         titleET=view.findViewById(R.id.addpost_title);
         descriptionET=view.findViewById(R.id.addpost_text);
@@ -103,6 +109,7 @@ public class AddDesignFragment extends Fragment {
         title=titleET.getText().toString();
         description=descriptionET.getText().toString();
         Post post=new Post(uid,title,description,postCategory);
+        progBar_addDes.setVisibility(View.VISIBLE);
         Model.instance.addPostWithID(post, new Model.AddPostWithIDListener() {
             @Override
             public void onComplete(boolean success) {

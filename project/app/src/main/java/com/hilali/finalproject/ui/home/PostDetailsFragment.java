@@ -41,7 +41,7 @@ public class PostDetailsFragment extends Fragment {
         postCategory=view.findViewById(R.id.post_details_category);
         imageOnPost=view.findViewById(R.id.postdetalis_image);
         editPost_btn=view.findViewById(R.id.postDetails_editpost_btn);
-        editPost_btn.setEnabled(false);
+        editPost_btn.setVisibility(View.GONE);
 
         Model.instance.getPostById(pid, new Model.GetPostByIDsListener() {
             @Override
@@ -55,7 +55,8 @@ public class PostDetailsFragment extends Fragment {
                 String uid2=post.getUid();
                 if(uid.equals(uid2))
                 {
-                    editPost_btn.setEnabled(true);
+                    editPost_btn.setVisibility(View.VISIBLE);
+
                 }
             }
         });

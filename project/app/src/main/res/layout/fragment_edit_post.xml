@@ -17,17 +17,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ProgressBar
+                android:id="@+id/progBar_editPost"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="155dp"
+                android:layout_height="129dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.464"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.475" />
+
             <ImageButton
                 android:id="@+id/editPost_imgBtn"
-                android:layout_width="83dp"
-                android:layout_height="59dp"
-                android:layout_marginTop="172dp"
+                android:layout_width="88dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="152dp"
                 android:background="#02FFFFFF"
                 android:scaleType="centerInside"
-                android:src="@android:drawable/ic_menu_add"
+                android:src="@drawable/plusicon"
                 android:tint="#555353"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.881"
+                app:layout_constraintHorizontal_bias="0.835"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/editPost_img"
                 tools:src="@drawable/plusicon" />
@@ -90,10 +103,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:src="@drawable/home_icon"
+                android:src="@drawable/picture"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <ImageButton
                 android:id="@+id/editPost_cancel_btn"
