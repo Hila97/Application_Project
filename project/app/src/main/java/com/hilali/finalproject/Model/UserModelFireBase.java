@@ -38,6 +38,18 @@ public class UserModelFireBase {
             }
         });
     }
+    public static boolean isSign()
+    {
+        FirebaseAuth fauth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser=fauth.getCurrentUser();
+        if (currentUser==null)
+            return false;
+        return true;
+    }
+    public static void logOut() {
+        FirebaseAuth.getInstance().signOut();
+    }
+
     public static String getUserID() {
         FirebaseAuth fauth=FirebaseAuth.getInstance();
         return fauth.getCurrentUser().getUid();

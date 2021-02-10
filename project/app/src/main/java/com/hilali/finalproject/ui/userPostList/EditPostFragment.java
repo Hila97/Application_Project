@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +68,10 @@ public class EditPostFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 postCategory=categoryPick(position);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                postCategory=PostCategory.OTHER;
+                Log.d("TAG","take the previous choise");
             }
         });
 
@@ -79,6 +81,7 @@ public class EditPostFragment extends Fragment {
                 postNow=post;
                 title_ET.setText(postNow.getTitle());
                 describe_ET.setText(postNow.getDescription());
+                postCategory=postNow.getCategory();
             }
         });
 
@@ -126,11 +129,14 @@ public class EditPostFragment extends Fragment {
 
     //verifyFields FUNC
     private boolean verifyFields() {
+        /*
         EditText title,description;
         title= title_ET;
         description=describe_ET;
 
-        if (!isETEmpty(title) && !isETEmpty(description)) {
+         */
+
+        if (!isETEmpty(title_ET) && !isETEmpty(describe_ET)) {
             return true;
         }
         return false;

@@ -32,6 +32,14 @@ public class Model {
     {
         return UserModelFireBase.getUserID();
     }
+    public boolean isSign()
+    {
+        return UserModelFireBase.isSign();
+    }
+    public void logOut()
+    {
+        UserModelFireBase.logOut();
+    }
     public  interface getUserNameListener{
         void  onComplete(String name);
     }
