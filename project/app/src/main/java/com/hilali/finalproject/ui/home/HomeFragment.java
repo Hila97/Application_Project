@@ -27,7 +27,6 @@ public class HomeFragment extends Fragment {
     List<String> allNames=new LinkedList<String>();
     ListView list;
     MyAdapter adapter;
-    String ownerName;
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);

@@ -26,6 +26,7 @@ public class UserProfileFragment extends Fragment {
     TextView nameTV;
     TextView phoneTV;
     Button editBtn;
+    Button logOutBtn;
     User userNow;
 
     @Override
@@ -38,6 +39,7 @@ public class UserProfileFragment extends Fragment {
         nameTV=view.findViewById(R.id.user_profile_name);
         phoneTV=view.findViewById(R.id.user_profile_phone);
         editBtn=view.findViewById(R.id.user_profile_edit_btn);
+        logOutBtn=view.findViewById(R.id.user_profile_logoutBtn);
 
         final String uid=Model.instance.getUserID();
         Model.instance.getUserById(uid, new Model.GetUserByIDsListener() {
@@ -51,7 +53,13 @@ public class UserProfileFragment extends Fragment {
             }
         });
         editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_nav_user_profile_to_editProfileFragment));
-
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Model.instance.logOut();
+                Navigation.findNavController(v).navigate(R.id.action_nav_user_profile_to_loginFragment);
+            }
+        });
 
         return view;
     }
