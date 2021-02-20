@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.hilali.finalproject.MainActivity;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.User;
@@ -27,9 +28,14 @@ public class HomeFragment extends Fragment {
     List<String> allNames=new LinkedList<String>();
     ListView list;
     MyAdapter adapter;
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    TextView mail;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ((MainActivity)getActivity()).setUserDetails();
+
+      //  this.getActivity().setContentView(R.layout.nav_header_main);
+      //  mail=view.findViewById(R.id.menu_user_mail);
+      //  String s=Model.instance.getUserID();
         list=view.findViewById(R.id.mainlistfragment_listview);
         adapter=new MyAdapter();
         list.setAdapter(adapter);
@@ -54,6 +60,7 @@ public class HomeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
     }
     class MyAdapter extends BaseAdapter {
         @Override
@@ -76,8 +83,6 @@ public class HomeFragment extends Fragment {
             Post post=allData.get(i);
             TextView titleTV=view.findViewById(R.id.mainlist_title);
             titleTV.setText(post.getTitle());
-            TextView usernameTV=view.findViewById(R.id.mainlist_username);
-            usernameTV.setText("user");
             ImageView imageView=view.findViewById(R.id.mainlist_image);
 
             return view;

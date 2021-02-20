@@ -31,8 +31,35 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.475" />
 
+            <ImageView
+                android:id="@+id/edit_profile_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/user_profile_picture"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_profile_title"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageButton
+                android:id="@+id/edit_profile_imageBtn"
+                android:layout_width="76dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="108dp"
+                android:background="#02FFFFFF"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/ic_menu_add"
+                android:tint="#555353"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.698"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/edit_profile_image"
+                tools:src="@drawable/plusicon" />
+
             <EditText
-                android:id="@+id/edit_post_descrip_ET"
+                android:id="@+id/edit_profile_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -47,16 +74,17 @@
                 app:layout_constraintTop_toTopOf="@+id/textView22" />
 
             <TextView
-                android:id="@+id/edit_profile_text"
+                android:id="@+id/edit_profile_title"
                 android:layout_width="wrap_content"
                 android:layout_height="31dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="52dp"
                 android:layout_marginEnd="32dp"
                 android:text="EDIT PROFILE"
                 android:textSize="24sp"
                 android:textStyle="normal|bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,7 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
             <Button
-                android:id="@+id/edit_post_cancel_button"
+                android:id="@+id/edit_profile_cancel_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="70dp"
@@ -97,24 +125,24 @@
                 android:text="CANCEL"
                 app:backgroundTint="#786666"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/edit_post_save_button"
+                app:layout_constraintEnd_toStartOf="@+id/edit_profile_save_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_post_descrip_ET" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_profile_phone" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="96dp"
                 android:layout_height="51dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="64dp"
                 android:text="NAME:"
                 android:textSize="24sp"
                 android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_profile_text" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_profile_image" />
 
             <EditText
-                android:id="@+id/edit_post_titlepost_ET"
+                android:id="@+id/edit_profile_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -141,17 +169,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
             <Button
-                android:id="@+id/edit_post_save_button"
+                android:id="@+id/edit_profile_save_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="70dp"
                 android:text="SAVE"
                 app:backgroundTint="#786666"
-                app:layout_constraintBottom_toBottomOf="@+id/edit_post_cancel_button"
+                app:layout_constraintBottom_toBottomOf="@+id/edit_profile_cancel_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/edit_post_cancel_button"
-                app:layout_constraintTop_toTopOf="@+id/edit_post_cancel_button" />
+                app:layout_constraintStart_toEndOf="@+id/edit_profile_cancel_button"
+                app:layout_constraintTop_toTopOf="@+id/edit_profile_cancel_button" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

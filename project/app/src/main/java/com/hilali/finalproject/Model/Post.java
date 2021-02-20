@@ -8,12 +8,11 @@ public class Post {
     private String title;
     private String description;
     private PostCategory category;
-   // private LocalDate postDate;
+
 
     public Post() { }
 
     public Post(String uid, String title, String description, PostCategory category) {
-        //this.pid = pid;
         this.uid = uid;
         this.title = title;
         this.description = description;

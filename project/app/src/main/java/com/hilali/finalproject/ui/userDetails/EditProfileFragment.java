@@ -1,16 +1,20 @@
 package com.hilali.finalproject.ui.userDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,23 +30,27 @@ public class EditProfileFragment extends Fragment {
     EditText EditProfile_PasswordEt;
     Button EditProfile_saveBtn;
     Button EditProfile_cancelBtn;
-    ProgressBar progBar_editProfile;
+    ImageView userImage;
+    ImageButton editImageBtn;
     User userNow;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
-        textViewEditTittle = view.findViewById(R.id.edit_profile_text);
-        EditProfile_NameEt = view.findViewById(R.id.edit_post_titlepost_ET);
-        EditProfile_PhoneEt = view.findViewById(R.id.edit_post_descrip_ET);
+        textViewEditTittle = view.findViewById(R.id.edit_profile_title);
+        EditProfile_NameEt = view.findViewById(R.id.edit_profile_name);
+        EditProfile_PhoneEt = view.findViewById(R.id.edit_profile_phone);
         EditProfile_PasswordEt = view.findViewById(R.id.edit_profile_password_ET);
-        EditProfile_saveBtn = view.findViewById(R.id.edit_post_save_button);
-        EditProfile_cancelBtn = view.findViewById(R.id.edit_post_cancel_button);
-        progBar_editProfile=view.findViewById(R.id.progBar_editProfile);
-        progBar_editProfile.setVisibility(View.INVISIBLE);
+        userImage=view.findViewById(R.id.edit_profile_image);
+        editImageBtn=view.findViewById(R.id.edit_profile_imageBtn);
+        EditProfile_saveBtn = view.findViewById(R.id.edit_profile_save_button);
+        EditProfile_cancelBtn = view.findViewById(R.id.edit_profile_cancel_button);
 
+        progressBar=view.findViewById(R.id.progBar_editProfile);
+        progressBar.setVisibility(View.INVISIBLE);
 
         final String uid = Model.instance.getUserID();
         Model.instance.getUserById(uid, new Model.GetUserByIDsListener() {
@@ -58,9 +66,11 @@ public class EditProfileFragment extends Fragment {
         EditProfile_cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 Navigation.findNavController(view).popBackStack();
             }
         });
+
 
 
         EditProfile_saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,13 +84,17 @@ public class EditProfileFragment extends Fragment {
                 }
             }
         });
+        editImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editImage(v);
+            }
+        });
 
 
 
         return view;
     }
-
-
 
 
 
@@ -116,7 +130,6 @@ public class EditProfileFragment extends Fragment {
 
 
     private void UpdateProfile(View view) {
-        progBar_editProfile.setVisibility(View.VISIBLE);
         userNow.setName(EditProfile_NameEt.getText().toString());
         userNow.setPhone(EditProfile_PhoneEt.getText().toString());
         userNow.setPassword(EditProfile_PasswordEt.getText().toString());
@@ -131,6 +144,12 @@ public class EditProfileFragment extends Fragment {
         });
 
     }
+    private void editImage(View v) {
+        Intent openGalleryIntent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(openGalleryIntent,1000);
+
+    }
+
 
 
 }

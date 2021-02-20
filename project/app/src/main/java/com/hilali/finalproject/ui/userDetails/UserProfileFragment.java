@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class UserProfileFragment extends Fragment {
     Button editBtn;
     Button logOutBtn;
     User userNow;
+    ImageView userImage;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,7 +42,7 @@ public class UserProfileFragment extends Fragment {
         phoneTV=view.findViewById(R.id.user_profile_phone);
         editBtn=view.findViewById(R.id.user_profile_edit_btn);
         logOutBtn=view.findViewById(R.id.user_profile_logoutBtn);
-
+        userImage=view.findViewById(R.id.user_profile_image);
         final String uid=Model.instance.getUserID();
         Model.instance.getUserById(uid, new Model.GetUserByIDsListener() {
             @Override

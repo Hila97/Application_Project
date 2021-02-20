@@ -133,13 +133,6 @@ public class EditPostFragment extends Fragment {
 
     //verifyFields FUNC
     private boolean verifyFields() {
-        /*
-        EditText title,description;
-        title= title_ET;
-        description=describe_ET;
-
-         */
-
         if (!isETEmpty(title_ET) && !isETEmpty(describe_ET)) {
             return true;
         }
@@ -166,10 +159,6 @@ public class EditPostFragment extends Fragment {
             }
         });
     }
-
-
-
-
 
     //delete Post FUNC
     private void deletePost(View view) {

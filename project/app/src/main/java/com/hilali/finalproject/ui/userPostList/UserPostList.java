@@ -92,8 +92,6 @@ public class UserPostList extends Fragment {
                 Post post = myData.get(i);
                 TextView titleTV = view.findViewById(R.id.mainlist_title);
                 titleTV.setText(post.getTitle());
-                TextView usernameTV = view.findViewById(R.id.mainlist_username);
-                usernameTV.setText("user");
                 ImageView imageView = view.findViewById(R.id.mainlist_image);
 
                 return view;

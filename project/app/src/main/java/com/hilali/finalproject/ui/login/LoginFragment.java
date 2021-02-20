@@ -30,17 +30,13 @@ public class LoginFragment extends Fragment {
     Button signUpBtn;
     ProgressBar progressBar;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_login, container, false);
-
-        /*
-        boolean isUserSign=Model.instance.isSign();
-        if(isUserSign)
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_nav_home);
-         */
 
 
         mailET=view.findViewById(R.id.login_email);

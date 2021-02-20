@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.hilali.finalproject.Model.Model;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,17 +20,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-
+    public Toolbar toolbar;
+    NavigationView navigationView;
+    TextView mail,name;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+        View v=navigationView.inflateHeaderView(R.layout.nav_header_main);
+        mail=v.findViewById(R.id.menu_user_mail);
+        name=v.findViewById(R.id.menu_user_name);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -38,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    public void setUserDetails() {
+        String uid=Model.instance.getUserID();
+        mail.setText(Model.instance.getCurrentUser().getEmail());
+        Model.instance.getUserName(uid, new Model.getUserNameListener() {
+            @Override
+            public void onComplete(String userName) {
+                name.setText(userName);
+            }
+        });
     }
 
     @Override
