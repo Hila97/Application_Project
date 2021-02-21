@@ -47,14 +47,14 @@
                 android:id="@+id/edit_profile_imageBtn"
                 android:layout_width="76dp"
                 android:layout_height="46dp"
-                android:layout_marginTop="108dp"
+                android:layout_marginTop="72dp"
                 android:background="#02FFFFFF"
                 android:scaleType="centerInside"
                 android:src="@android:drawable/ic_menu_add"
                 android:tint="#555353"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.698"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toEndOf="@+id/edit_profile_image"
                 app:layout_constraintTop_toTopOf="@+id/edit_profile_image"
                 tools:src="@drawable/plusicon" />
 

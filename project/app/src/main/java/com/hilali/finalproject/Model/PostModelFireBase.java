@@ -1,6 +1,7 @@
 package com.hilali.finalproject.Model;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -144,7 +149,6 @@ public class PostModelFireBase {
                         Log.w("TAG", "Error deleting document", e);
                         listener.onComplete(false);
                     }
-
                 });
     }
 
@@ -159,6 +163,7 @@ public class PostModelFireBase {
         data.put("title",post.getTitle());
         data.put("description",post.getDescription());
         data.put("category",post.getCategory());
+        data.put("imageUrl",post.getImageUrl());
 
         db.collection("posts").document(pid).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -177,10 +182,53 @@ public class PostModelFireBase {
                 });
     }
 
-    public interface UploadPostImageListener{
-        public void onComplete(String url);
+
+
+    public static void uploadPostImage(Bitmap imageBmp, String fileName, Model.UploadPostImageListener listener) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        final StorageReference imagesRef = storage.getReference().child("PostsImage").child(fileName);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = imagesRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception exception) {
+                listener.onComplete(null);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Uri downloadUrl = uri;
+                        listener.onComplete(downloadUrl.toString());
+                    }
+                });
+            }
+        });
     }
 
-    public static void uploadPostImage(Bitmap imageBmp, String fileName, PostModelFireBase.UploadPostImageListener listener) {
+    public static void deletePostImage(String fileName, Model.deletePostImageListener listener) {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        /*StorageReference storageRef = storage.getReference();
+        String deleteImg="PostsImage/"+" "+fileName;
+        StorageReference desertRef = storageRef.child(fileName);
+        desertRef.delete().addOnSuccessListener
+         */
+        StorageReference photoRef = storage.getReferenceFromUrl(fileName);
+        photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                listener.onComplete(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                listener.onComplete(false);
+            }
+        });
     }
 }

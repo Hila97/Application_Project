@@ -1,5 +1,10 @@
 package com.hilali.finalproject.ui.userPostList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,6 +29,7 @@ import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.PostCategory;
 import com.hilali.finalproject.R;
 import com.hilali.finalproject.ui.home.PostDetailsFragmentArgs;
+import com.squareup.picasso.Picasso;
 
 
 public class EditPostFragment extends Fragment {
@@ -32,9 +39,13 @@ public class EditPostFragment extends Fragment {
     ImageButton save_btn;
     ImageButton cancel_btn;
     ImageButton delete_btn;
+    ImageView postImage;
     ProgressBar progBar_editPost;
     Post postNow;
     Spinner categorySpinner_EP;
+    private static final int RESULT_CANCELED =0 ;
+    private static final int RESULT_OK =-1 ;
+    boolean flagAddImage=false;
 
     PostCategory postCategory;
     static String[] categories = new String[]{PostCategory.LIVING_ROOM.toString(),
@@ -56,6 +67,7 @@ public class EditPostFragment extends Fragment {
 
         title_ET=view.findViewById(R.id.editPost_title);
         describe_ET =view.findViewById(R.id.editPost_descrip);
+        postImage=view.findViewById(R.id.editPost_img);
         addImg_btn=view.findViewById(R.id.editPost_imgBtn);
         save_btn=view.findViewById(R.id.editPost_save_btn);
         cancel_btn=view.findViewById(R.id.editPost_cancel_btn);
@@ -86,9 +98,12 @@ public class EditPostFragment extends Fragment {
                 title_ET.setText(postNow.getTitle());
                 describe_ET.setText(postNow.getDescription());
                 postCategory=postNow.getCategory();
+                if(postNow.getImageUrl()!=null &&postNow.getImageUrl()!="")
+                    Picasso.get().load(postNow.getImageUrl()).into(postImage);
+                else
+                    postImage.setImageResource(R.drawable.user_profile_picture);
             }
         });
-
 
         //SAVE BUTTON
         save_btn.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +113,6 @@ public class EditPostFragment extends Fragment {
                     updatePost(view);
             }
         });
-
 
         //CANCEL BUTTON
        cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +128,16 @@ public class EditPostFragment extends Fragment {
                deletePost(view);
            }
        });
-
-
+        addImg_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editImage(v);
+            }
+        });
 
         return  view;
-
     }
+
 
 
     // isEmpty FUNC
@@ -145,17 +163,26 @@ public class EditPostFragment extends Fragment {
         postNow.setTitle(title_ET.getText().toString());
         postNow.setDescription(describe_ET.getText().toString());
         postNow.setCategory(postCategory);
-        Model.instance.UpdatePost(postNow, new Model.updatePostListener() {
+        Bitmap bitmap = ((BitmapDrawable)postImage.getDrawable()).getBitmap();
+        Model.instance.uploadPostImage(bitmap, postNow.getUid() + " " +postNow.getTitle(),new  Model.UploadPostImageListener() {
             @Override
-            public void onComplete(Boolean success) {
-                if(success){
-
-                    Toast.makeText(view.getContext(),"post updated",Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).popBackStack();
+            public void onComplete(String url) {
+                if (url == null) {
+                    progBar_editPost.setVisibility(View.INVISIBLE);
+                    Toast.makeText(view.getContext(), "FAILED SAVING IMAGE", Toast.LENGTH_SHORT).show();
+                } else {
+                    postNow.setImageUrl(url);
+                    Model.instance.UpdatePost(postNow, new Model.updatePostListener() {
+                        @Override
+                        public void onComplete(Boolean success) {
+                            if (success) {
+                                Toast.makeText(view.getContext(), "post updated", Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).popBackStack();
+                            } else
+                                Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-                else
-                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -163,31 +190,71 @@ public class EditPostFragment extends Fragment {
     //delete Post FUNC
     private void deletePost(View view) {
         progBar_editPost.setVisibility(View.VISIBLE);
-        Model.instance.deletePost(postNow, new Model.deletePostListener() {
+        Model.instance.deletePostImage(postNow.getImageUrl(), new Model.deletePostImageListener() {
             @Override
             public void onComplete(Boolean success) {
-                if(success){
-
-                    Toast.makeText(view.getContext(),"post deleted",Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).navigate(R.id.action_editPostFragment_to_userPostList);
+                if(success)
+                {
+                    Model.instance.deletePost(postNow, new Model.deletePostListener() {
+                        @Override
+                        public void onComplete(Boolean success) {
+                            if(success){
+                                Toast.makeText(view.getContext(),"post deleted",Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(R.id.action_editPostFragment_to_userPostList);
+                            }
+                            else
+                                Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
                 else
-                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(view.getContext(), "FAILED TO DELETE", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
+    }
+    private void editImage(View v) {
+        final CharSequence[] options = {"Take a photo", "Choose from Gallery", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose a picture for your new design");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Take a photo")) {
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+                } else if (options[item].equals("Choose from Gallery")) {
+                    Intent pickPhoto=new Intent(Intent.ACTION_GET_CONTENT);
+                    pickPhoto.setType("PostsImage/*");
+                    startActivityForResult(pickPhoto, 1);
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 
-
-
-
-
-
-
-
+    public void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0: //return from camera
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        postImage.setImageBitmap(selectedImage);
+                        flagAddImage=true;
+                    }
+                    break;
+                case 1: //return from gallery
+                    if( resultCode==RESULT_OK && data!=null){
+                        postImage.setImageURI(data.getData());
+                        flagAddImage=true;
+                    }
+                    break;
+            }
+        }
+    }
 
     //categoryPick FUNC
     private PostCategory categoryPick(int position) {

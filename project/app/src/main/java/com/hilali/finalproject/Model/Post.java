@@ -8,7 +8,7 @@ public class Post {
     private String title;
     private String description;
     private PostCategory category;
-
+    private String imageUrl;
 
     public Post() { }
 
@@ -17,7 +17,18 @@ public class Post {
         this.title = title;
         this.description = description;
         this.category = category;
+        this.imageUrl = null;
     }
+    public Post(Post post)
+    {
+        this.pid=post.getPid();
+        this.uid=post.getUid();
+        this.title=post.getTitle();
+        this.description=post.getDescription();
+        this.category=post.getCategory();
+        this.imageUrl=post.getImageUrl();
+    }
+
 
     public String getPid() {
         return pid;
@@ -57,5 +68,13 @@ public class Post {
 
     public void setCategory(PostCategory category) {
         this.category = category;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

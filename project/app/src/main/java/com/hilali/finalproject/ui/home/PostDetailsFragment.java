@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.R;
+import com.squareup.picasso.Picasso;
 
 
 public class PostDetailsFragment extends Fragment {
@@ -51,12 +52,15 @@ public class PostDetailsFragment extends Fragment {
                 titleOfPost.setText(post.getTitle());
                 describeOfPost.setText(post.getDescription());
                 postCategory.setText(post.getCategory().toString());
+                if(post.getImageUrl()!=null&& post.getImageUrl()!="")
+                    Picasso.get().load(post.getImageUrl()).into(imageOnPost);
+                else
+                    imageOnPost.setImageResource(R.drawable.home_icon);
                 final String uid=Model.instance.getUserID();
                 String uid2=post.getUid();
                 if(uid.equals(uid2))
                 {
                     editPost_btn.setVisibility(View.VISIBLE);
-
                 }
             }
         });

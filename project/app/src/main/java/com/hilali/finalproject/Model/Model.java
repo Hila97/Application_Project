@@ -91,7 +91,10 @@ public class Model {
         UserModelFireBase.deleteUser(user,listener);
 
     }
-    public void uploadImage(Bitmap imageBmp, String fileName, final UserModelFireBase.UploadProfileImageListener listener){
+    public interface UploadProfileImageListener{
+        public void onComplete(String url);
+    }
+    public void uploadUserImage(Bitmap imageBmp, String fileName, final UploadProfileImageListener listener){
         UserModelFireBase.uploadProfileImage(imageBmp,fileName,listener);
     }
 
@@ -154,8 +157,17 @@ public class Model {
         PostModelFireBase.deletePost(post,listener);
 
     }
-    public void uploadPostImage(Bitmap imageBmp, String fileName, final PostModelFireBase.UploadPostImageListener listener){
+    public interface UploadPostImageListener{
+        public void onComplete(String url);
+    }
+    public void uploadPostImage(Bitmap imageBmp, String fileName, final UploadPostImageListener listener){
         PostModelFireBase.uploadPostImage(imageBmp,fileName,listener);
+    }
+    public interface deletePostImageListener{
+        void onComplete(Boolean success);
+    }
+    public void deletePostImage(String fileName, final deletePostImageListener listener ) {
+        PostModelFireBase.deletePostImage(fileName,listener);
     }
 
 

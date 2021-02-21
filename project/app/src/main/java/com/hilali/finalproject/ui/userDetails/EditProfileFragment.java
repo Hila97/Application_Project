@@ -1,6 +1,10 @@
 package com.hilali.finalproject.ui.userDetails;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +26,7 @@ import android.widget.Toast;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
+import com.squareup.picasso.Picasso;
 
 public class EditProfileFragment extends Fragment {
     TextView textViewEditTittle;
@@ -34,7 +39,9 @@ public class EditProfileFragment extends Fragment {
     ImageButton editImageBtn;
     User userNow;
     ProgressBar progressBar;
-
+    private static final int RESULT_CANCELED =0 ;
+    private static final int RESULT_OK =-1 ;
+    boolean flagAddImage=false;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,7 +67,14 @@ public class EditProfileFragment extends Fragment {
                 EditProfile_NameEt.setText(userNow.getName());
                 EditProfile_PhoneEt.setText(userNow.getPhone());
                 EditProfile_PasswordEt.setText(userNow.getPassword());
-
+                if(userNow.getImageUrl()!=null &&userNow.getImageUrl()!="")
+                {
+                    Picasso.get().load(userNow.getImageUrl()).into(userImage);
+                }
+                else
+                {
+                    userImage.setImageResource(R.drawable.user_profile_picture);
+                }
             }
         });
         EditProfile_cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,11 +85,10 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-
-
         EditProfile_saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 //בדיקת קלט
                 if(verifyFields())
                 {
@@ -90,9 +103,6 @@ public class EditProfileFragment extends Fragment {
                 editImage(v);
             }
         });
-
-
-
         return view;
     }
 
@@ -133,23 +143,76 @@ public class EditProfileFragment extends Fragment {
         userNow.setName(EditProfile_NameEt.getText().toString());
         userNow.setPhone(EditProfile_PhoneEt.getText().toString());
         userNow.setPassword(EditProfile_PasswordEt.getText().toString());
-        Model.instance.UpdateUser(userNow, new Model.updateUserListener() {
+        EditProfile_saveBtn.setEnabled(false);
+        EditProfile_cancelBtn.setEnabled(false);
+        editImageBtn.setEnabled(false);
+        Bitmap bitmap = ((BitmapDrawable)userImage.getDrawable()).getBitmap();
+        Model.instance.uploadUserImage(bitmap, userNow.getUid(), new Model.UploadProfileImageListener() {
             @Override
-            public void onComplete(Boolean success) {
-                if (success)
-                    Navigation.findNavController(view).popBackStack();
+            public void onComplete(String url) {
+                if (url == null){
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(view.getContext(), "FAILED SAVING IMAGE", Toast.LENGTH_SHORT).show();
+                }
                 else
-                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                {
+                    userNow.setImageUrl(url);
+                    Model.instance.UpdateUser(userNow, new Model.updateUserListener() {
+                        @Override
+                        public void onComplete(Boolean success) {
+                            if (success)
+                                Navigation.findNavController(view).popBackStack();
+                            else
+                                Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
-
     }
+
     private void editImage(View v) {
-        Intent openGalleryIntent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(openGalleryIntent,1000);
-
+        final CharSequence[] options = {"Take a photo", "Choose from Gallery", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose your profile picture");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Take a photo")) {
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePicture, 0);
+                } else if (options[item].equals("Choose from Gallery")) {
+//                   Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent pickPhoto=new Intent(Intent.ACTION_GET_CONTENT)   ;
+                    pickPhoto.setType("UserProfileImage/*");
+                    startActivityForResult(pickPhoto, 1);
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
-
+    public void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0: //return from camera
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        userImage.setImageBitmap(selectedImage);
+                        flagAddImage=true;
+                    }
+                    break;
+                case 1: //return from gallery
+                    if( resultCode==RESULT_OK && data!=null){
+                        userImage.setImageURI(data.getData());
+                        flagAddImage=true;
+                    }
+                    break;
+            }
+        }
+    }
 
 
 }

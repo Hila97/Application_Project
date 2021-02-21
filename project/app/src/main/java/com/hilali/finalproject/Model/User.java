@@ -10,7 +10,7 @@ public class User {
     private String password;
     private String name;
     private String phone;
-    //private String imageUrl;
+    private String imageUrl;
 
 
 
@@ -22,7 +22,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.phone = phone;
-        //this.imageUrl = imageUrl;
+        this.imageUrl = null;
     }
     public User(@NotNull User user)
     {
@@ -31,6 +31,7 @@ public class User {
         this.password = user.getPassword();
         this.name = user.getName();
         this.phone = user.getPhone();
+        this.imageUrl=user.getImageUrl();
     }
 
 
@@ -56,12 +57,14 @@ public class User {
         return phone;
     }
 
-  /*  public String getImageUrl() {
+
+    public String getImageUrl() {
         return imageUrl;
     }
 
-
-   */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -82,11 +85,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-/*
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
- */
 
 }

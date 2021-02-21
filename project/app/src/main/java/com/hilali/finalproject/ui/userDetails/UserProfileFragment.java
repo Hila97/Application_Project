@@ -20,6 +20,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
+import com.squareup.picasso.Picasso;
 
 public class UserProfileFragment extends Fragment {
     TextView mailTV;
@@ -52,6 +53,14 @@ public class UserProfileFragment extends Fragment {
                 passwordTV.setText(userNow.getPassword());
                 nameTV.setText(userNow.getName());
                 phoneTV.setText(userNow.getPhone());
+                if(userNow.getImageUrl()!=null &&userNow.getImageUrl()!="")
+                {
+                    Picasso.get().load(userNow.getImageUrl()).into(userImage);
+                }
+                else
+                {
+                    userImage.setImageResource(R.drawable.user_profile_picture);
+                }
             }
         });
         editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_nav_user_profile_to_editProfileFragment));

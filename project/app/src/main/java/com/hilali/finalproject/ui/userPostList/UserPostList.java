@@ -21,6 +21,7 @@ import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.R;
 import com.hilali.finalproject.ui.home.HomeFragment;
 import com.hilali.finalproject.ui.userDetails.UserProfileFragmentDirections;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -92,8 +93,11 @@ public class UserPostList extends Fragment {
                 Post post = myData.get(i);
                 TextView titleTV = view.findViewById(R.id.mainlist_title);
                 titleTV.setText(post.getTitle());
-                ImageView imageView = view.findViewById(R.id.mainlist_image);
-
+                ImageView imageOnPost = view.findViewById(R.id.mainlist_image);
+                if(post.getImageUrl()!=null&& post.getImageUrl()!="")
+                    Picasso.get().load(post.getImageUrl()).into(imageOnPost);
+                else
+                    imageOnPost.setImageResource(R.drawable.home_icon);
                 return view;
             }
         }

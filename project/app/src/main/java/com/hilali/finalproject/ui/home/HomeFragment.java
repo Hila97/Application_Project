@@ -19,6 +19,7 @@ import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,9 +34,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ((MainActivity)getActivity()).setUserDetails();
 
-      //  this.getActivity().setContentView(R.layout.nav_header_main);
-      //  mail=view.findViewById(R.id.menu_user_mail);
-      //  String s=Model.instance.getUserID();
         list=view.findViewById(R.id.mainlistfragment_listview);
         adapter=new MyAdapter();
         list.setAdapter(adapter);
@@ -83,7 +81,11 @@ public class HomeFragment extends Fragment {
             Post post=allData.get(i);
             TextView titleTV=view.findViewById(R.id.mainlist_title);
             titleTV.setText(post.getTitle());
-            ImageView imageView=view.findViewById(R.id.mainlist_image);
+            ImageView postImg=view.findViewById(R.id.mainlist_image);
+            if(post.getImageUrl()!=null&& post.getImageUrl()!="")
+                Picasso.get().load(post.getImageUrl()).into(postImg);
+            else
+                postImg.setImageResource(R.drawable.home_icon);
 
             return view;
         }
