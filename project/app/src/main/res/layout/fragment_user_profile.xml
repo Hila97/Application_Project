@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:text="EDIT PROFILE"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 app:backgroundTint="#786666"
                 app:layout_constraintBottom_toTopOf="@+id/user_profile_logoutBtn"
                 app:layout_constraintEnd_toEndOf="parent"
