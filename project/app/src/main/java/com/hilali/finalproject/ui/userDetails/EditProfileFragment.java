@@ -47,7 +47,7 @@ public class EditProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
-        textViewEditTittle = view.findViewById(R.id.edit_profile_title);
+        //textViewEditTittle = view.findViewById(R.id.edit_profile_title);
         EditProfile_NameEt = view.findViewById(R.id.edit_profile_name);
         EditProfile_PhoneEt = view.findViewById(R.id.edit_profile_phone);
         EditProfile_PasswordEt = view.findViewById(R.id.edit_profile_password_ET);
