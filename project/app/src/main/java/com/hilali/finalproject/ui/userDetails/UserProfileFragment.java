@@ -1,11 +1,11 @@
 package com.hilali.finalproject.ui.userDetails;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,10 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
@@ -28,7 +24,7 @@ public class UserProfileFragment extends Fragment {
     TextView nameTV;
     TextView phoneTV;
     Button editBtn;
-    Button logOutBtn;
+    ImageButton logOutBtn;
     User userNow;
     ImageView userImage;
 

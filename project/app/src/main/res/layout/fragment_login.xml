@@ -8,12 +8,15 @@
     tools:context=".ui.login.LoginFragment">
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="169dp"
-        android:layout_height="81dp"
+        android:id="@+id/imageView3"
+        android:layout_width="240dp"
+        android:layout_height="96dp"
         android:layout_marginEnd="216dp"
-        android:src="@drawable/textlogo"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/dreamdesigntext"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
