@@ -184,7 +184,7 @@ public class EditProfileFragment extends Fragment {
                 } else if (options[item].equals("Choose from Gallery")) {
 //                   Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     Intent pickPhoto=new Intent(Intent.ACTION_GET_CONTENT)   ;
-                    pickPhoto.setType("UserProfileImage/*");
+                    pickPhoto.setType("image/*");
                     startActivityForResult(pickPhoto, 1);
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();

@@ -85,13 +85,13 @@
 
             <Button
                 android:id="@+id/user_profile_edit_btn"
-                android:layout_width="100dp"
-                android:layout_height="35dp"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/roundedbutton"
-                android:text="EDIT PROFILE"
+                android:text="EDIT "
                 android:textColor="#79098C"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:backgroundTint="#BEF3EFF4"
                 app:layout_constraintEnd_toEndOf="parent"
