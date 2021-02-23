@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,8 +36,8 @@ public class EditPostFragment extends Fragment {
     EditText title_ET;
     EditText describe_ET;
     ImageButton addImg_btn ;
-    ImageButton save_btn;
-    ImageButton cancel_btn;
+    Button save_btn;
+    Button cancel_btn;
     ImageButton delete_btn;
     ImageView postImage;
     ProgressBar progBar_editPost;

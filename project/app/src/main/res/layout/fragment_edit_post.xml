@@ -9,9 +9,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="115dp">
+        tools:layout_editor_absoluteX="-105dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -98,9 +99,9 @@
             <ImageView
                 android:id="@+id/editPost_img"
                 android:layout_width="256dp"
-                android:layout_height="165dp"
+                android:layout_height="162dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/picture"
@@ -109,46 +110,55 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/editPost_cancel_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="#00FFFFFF"
-                android:scaleType="centerInside"
-                android:src="@drawable/backicon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editPost_save_btn"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editPost_category" />
-
-            <ImageButton
-                android:id="@+id/editPost_save_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="124dp"
-                android:background="#00FFFFFF"
-                android:scaleType="centerInside"
-                android:src="@drawable/save"
-                app:layout_constraintBottom_toBottomOf="@+id/editPost_cancel_btn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editPost_cancel_btn" />
-
-            <ImageButton
                 android:id="@+id/editPost_delete_btn"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
+                android:layout_width="45dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="#00FFFFFF"
                 android:scaleType="centerInside"
                 android:src="@drawable/delete2"
-                android:tint="#858383"
+                android:tint="#1B1C1C"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/editPost_img"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/editPost_save_btn"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="70dp"
+                android:background="@drawable/roundedbutton"
+                android:text="SAVE"
+                android:textColor="#79098C"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="#BEF3EFF4"
+                app:layout_constraintBottom_toBottomOf="@+id/editPost_cancel_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editPost_cancel_btn"
+                app:layout_constraintTop_toTopOf="@+id/editPost_cancel_btn" />
+
+            <Button
+                android:id="@+id/editPost_cancel_btn"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="64dp"
+                android:background="@drawable/roundedbutton"
+                android:text="CANCEL"
+                android:textColor="#79098C"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="#BEF3EFF4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/editPost_save_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editPost_category" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
