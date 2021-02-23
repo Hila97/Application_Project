@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -126,7 +127,7 @@ public class AddDesignFragment extends Fragment {
         addImg.setEnabled(false);
         title=titleET.getText().toString();
         description=descriptionET.getText().toString();
-        Post post=new Post(uid,title,description,postCategory);
+        Post post=new Post(uid,title,description,postCategory.toString());
         Bitmap bitmap = ((BitmapDrawable)postImage.getDrawable()).getBitmap();
         Model.instance.uploadPostImage(bitmap, uid + " " +title, new Model.UploadPostImageListener() {
             @Override
@@ -181,6 +182,7 @@ public class AddDesignFragment extends Fragment {
             switch (requestCode) {
                 case 0: //return from camera
                     if (resultCode == RESULT_OK && data != null) {
+                        //imageUri=data.getData();
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
                         postImage.setImageBitmap(selectedImage);
                         flagAddImage=true;
@@ -188,6 +190,7 @@ public class AddDesignFragment extends Fragment {
                     break;
                 case 1: //return from gallery
                     if( resultCode==RESULT_OK && data!=null){
+                        //imageUri=data.getData();
                         postImage.setImageURI(data.getData());
                         flagAddImage=true;
                     }

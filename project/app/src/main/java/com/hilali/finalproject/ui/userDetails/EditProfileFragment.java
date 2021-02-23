@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hilali.finalproject.MainActivity;
 import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.User;
 import com.hilali.finalproject.R;
@@ -94,6 +95,7 @@ public class EditProfileFragment extends Fragment {
                 {
                     if(verifyPassword(view))
                         UpdateProfile(view);
+                    ((MainActivity)getActivity()).setUserDetails();
                 }
             }
         });

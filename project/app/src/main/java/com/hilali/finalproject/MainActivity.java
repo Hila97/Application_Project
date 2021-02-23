@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseUser;
 import com.hilali.finalproject.Model.Model;
+import com.hilali.finalproject.Model.User;
+import com.squareup.picasso.Picasso;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     public Toolbar toolbar;
     NavigationView navigationView;
     TextView mail,name;
+    ImageView profileImage;
+    User userNow;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         View v=navigationView.inflateHeaderView(R.layout.nav_header_main);
         mail=v.findViewById(R.id.menu_user_mail);
         name=v.findViewById(R.id.menu_user_name);
+        profileImage=v.findViewById(R.id.menu_user_image);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -50,11 +57,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUserDetails() {
         String uid=Model.instance.getUserID();
-        mail.setText(Model.instance.getCurrentUser().getEmail());
-        Model.instance.getUserName(uid, new Model.getUserNameListener() {
+       userNow=Model.instance.getUserById(uid, new Model.GetUserByIDsListener() {
             @Override
-            public void onComplete(String userName) {
-                name.setText(userName);
+            public void onComplete(User user) {
+                userNow=user;
+                mail.setText(userNow.getEmail());
+                name.setText(userNow.getName());
+
+                if(userNow.getImageUrl()!=null &&userNow.getImageUrl()!="")
+                {
+                    Picasso.get().load(userNow.getImageUrl()).into(profileImage);
+                }
+                else
+                {
+                    profileImage.setImageResource(R.drawable.user_profile_picture);
+                }
             }
         });
     }

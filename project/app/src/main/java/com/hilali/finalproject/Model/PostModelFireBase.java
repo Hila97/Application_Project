@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,37 +28,47 @@ import java.util.Map;
 public class PostModelFireBase {
     public PostModelFireBase(){}
 
-    public static void getAllPosts(Model.GetAllPostsListener listener) {
+    interface getAllPostsListener{
+        void onComplete(List<Post> list);
+    }
+    public static void getAllPosts(Long lastUpdated,final getAllPostsListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Timestamp ts = new Timestamp(lastUpdated,0);
+        db.collection("posts").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     List<Post> postList = new LinkedList<Post>();
-                    for (QueryDocumentSnapshot doc: task.getResult()) {
-                        Log.d("TAG","post id: " + doc.get("pid"));
-                        Post post = doc.toObject(Post.class);
+                    for (DocumentSnapshot doc:task.getResult()) {
+                        Post post =new Post();
+                        post.fromMap(doc.getData());
                         postList.add(post);
                     }
                     listener.onComplete(postList);
-                }else{
-                    Log.d("TAG", "failed getting posts from fb");
-                    listener.onComplete(null);
                 }
+                //else{
+                //    listener.onComplete(null);
+                //}
             }
         });
     }
 
-    public static void getAllUserPosts(String userId,Model.GetAllUserPostsListener listener) {
+     interface GetAllUserPostsListener{
+        void onComplete(List<Post> data);
+    }
+    public static void getAllUserPosts(Long lastUpdated,String userId,final GetAllUserPostsListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Timestamp ts = new Timestamp(lastUpdated,0);
+        db.collection("posts").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     List<Post> postList = new LinkedList<Post>();
                     for (QueryDocumentSnapshot doc: task.getResult()) {
                         Log.d("TAG","post id: " + doc.get("pid"));
-                        Post post = doc.toObject(Post.class);
+                       // Post post = doc.toObject(Post.class);
+                        Post post =new Post();
+                        post.fromMap(doc.getData());
                         if(post.getUid().equals(userId))
                             postList.add(post);
                     }
@@ -76,7 +87,12 @@ public class PostModelFireBase {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
-                    Post post  = task.getResult().toObject(Post.class);
+                    Post post=new Post();
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null) {
+                        post.fromMap(task.getResult().getData());
+                    }
+                    //Post post  = task.getResult().toObject(Post.class);
                     listener.onComplete(post);
                 }else{
                     listener.onComplete(null);
@@ -85,37 +101,10 @@ public class PostModelFireBase {
         });
     }
 
-    public static void addPost(Post post, Model.AddPostListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String,Object> data=new HashMap<String, Object>();
-
-        data.put("pid",post.getPid());
-        data.put("uid",post.getUid());
-        data.put("title",post.getTitle());
-        data.put("description",post.getDescription());
-        data.put("category",post.getCategory());
-
-        db.collection("posts").document(post.getPid()).set(data)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("TAG", "DocumentSnapshot successfully written!");
-                        listener.onComplete(true);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("TAG", "Error writing document", e);
-                        listener.onComplete(false);
-                    }
-                });
-    }
-
     public static void updatePost(Post post, Model.updatePostListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posts").document(post.getPid())
-                .set(post)
+                .set(post.toMap())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -155,17 +144,9 @@ public class PostModelFireBase {
     public static void addPostWithID(Post post, Model.AddPostWithIDListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference ref = db.collection("posts").document();
-       // String myId = ref.id;
         String pid=ref.getId();
-        Map<String,Object> data=new HashMap<String, Object>();
-        data.put("pid",pid);
-        data.put("uid",post.getUid());
-        data.put("title",post.getTitle());
-        data.put("description",post.getDescription());
-        data.put("category",post.getCategory());
-        data.put("imageUrl",post.getImageUrl());
-
-        db.collection("posts").document(pid).set(data)
+        post.setPid(pid);
+        db.collection("posts").document(pid).set(post.toMap())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

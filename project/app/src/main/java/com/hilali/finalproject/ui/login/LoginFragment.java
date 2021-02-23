@@ -86,7 +86,7 @@ public class LoginFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(view.getContext(),"ERROR",Toast.LENGTH_SHORT).show();
-                   // progressBar.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                     loginBtn.setEnabled(true);
                     signUpBtn.setEnabled(true);
                 }

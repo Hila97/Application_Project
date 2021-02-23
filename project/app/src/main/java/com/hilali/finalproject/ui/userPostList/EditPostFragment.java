@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -28,6 +29,7 @@ import com.hilali.finalproject.Model.Model;
 import com.hilali.finalproject.Model.Post;
 import com.hilali.finalproject.Model.PostCategory;
 import com.hilali.finalproject.R;
+import com.hilali.finalproject.ui.home.HomeFragment;
 import com.hilali.finalproject.ui.home.PostDetailsFragmentArgs;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +49,7 @@ public class EditPostFragment extends Fragment {
     private static final int RESULT_OK =-1 ;
     boolean flagAddImage=false;
 
-    PostCategory postCategory;
+    String postCategory;
     static String[] categories = new String[]{PostCategory.LIVING_ROOM.toString(),
             PostCategory.BEDROOM.toString(),
             PostCategory.KITCHEN.toString(),
@@ -82,7 +84,7 @@ public class EditPostFragment extends Fragment {
         categorySpinner_EP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                postCategory=categoryPick(position);
+                postCategory=categoryPick(position).toString();
             }
 
             @Override
@@ -189,17 +191,27 @@ public class EditPostFragment extends Fragment {
 
     //delete Post FUNC
     private void deletePost(View view) {
+        postNow.setIsDeleted("true");
         progBar_editPost.setVisibility(View.VISIBLE);
         Model.instance.deletePostImage(postNow.getImageUrl(), new Model.deletePostImageListener() {
             @Override
             public void onComplete(Boolean success) {
                 if(success)
                 {
+                    Model.instance.UpdatePost(postNow, new Model.updatePostListener() {
+                        @Override
+                        public void onComplete(Boolean success) {
+                            Model.instance.refreshUserPosts(Model.instance.getUserID(),()->{ });
+                            Model.instance.refreshAllPost(()->{ });
+                        }
+                    });
                     Model.instance.deletePost(postNow, new Model.deletePostListener() {
                         @Override
                         public void onComplete(Boolean success) {
                             if(success){
                                 Toast.makeText(view.getContext(),"post deleted",Toast.LENGTH_SHORT).show();
+                                Model.instance.refreshUserPosts(Model.instance.getUserID(),()->{ });
+                                Model.instance.refreshAllPost(()->{ });
                                 Navigation.findNavController(view).navigate(R.id.action_editPostFragment_to_userPostList);
                             }
                             else
@@ -248,7 +260,8 @@ public class EditPostFragment extends Fragment {
                     break;
                 case 1: //return from gallery
                     if( resultCode==RESULT_OK && data!=null){
-                        postImage.setImageURI(data.getData());
+                        Uri imageUri=data.getData();
+                        postImage.setImageURI(imageUri);
                         flagAddImage=true;
                     }
                     break;

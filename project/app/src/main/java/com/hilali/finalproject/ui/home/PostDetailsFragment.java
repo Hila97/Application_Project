@@ -51,7 +51,7 @@ public class PostDetailsFragment extends Fragment {
                 setOwnerName(post.getUid());
                 titleOfPost.setText(post.getTitle());
                 describeOfPost.setText(post.getDescription());
-                postCategory.setText(post.getCategory().toString());
+                postCategory.setText(post.getCategory());
                 if(post.getImageUrl()!=null&& post.getImageUrl()!="")
                     Picasso.get().load(post.getImageUrl()).into(imageOnPost);
                 else

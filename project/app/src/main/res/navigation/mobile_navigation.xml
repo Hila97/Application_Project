@@ -103,6 +103,7 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_editPostFragment_to_userPostList"
-            app:destination="@id/userPostList" />
+            app:destination="@id/userPostList"
+            app:popUpTo="@id/userPostList" />
     </fragment>
 </navigation>
