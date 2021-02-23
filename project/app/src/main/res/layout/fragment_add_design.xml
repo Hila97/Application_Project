@@ -10,8 +10,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E1DBDB"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="#ffff"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,38 +26,38 @@
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.464"
+                app:layout_constraintHorizontal_bias="0.457"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.475" />
+                app:layout_constraintVertical_bias="0.384" />
 
             <EditText
                 android:id="@+id/addpost_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginEnd="24dp"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:hint="add your title here"
+                android:inputType="textPersonName"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView12"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView12"
                 app:layout_constraintTop_toTopOf="@+id/textView12" />
 
             <ImageView
                 android:id="@+id/addpost_img"
-                android:layout_width="317dp"
-                android:layout_height="224dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:src="@drawable/ic_menu_gallery"
+                android:layout_width="256dp"
+                android:layout_height="165dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/addimagee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-              />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/addpost_addBtn"
@@ -66,8 +67,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
+                android:background="@drawable/roundedbutton"
                 android:text="ADD DESIGN"
-                app:backgroundTint="#786666"
+                android:textColor="#79098C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:backgroundTint="#BEF3EFF4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,26 +80,27 @@
 
             <ImageButton
                 android:id="@+id/addpost_imgBtn"
-                android:layout_width="83dp"
-                android:layout_height="59dp"
-                android:layout_marginTop="164dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="15dp"
                 android:background="#02FFFFFF"
                 android:scaleType="centerInside"
-                android:src="@drawable/plusicon"
+                android:src="@drawable/addbutton"
                 android:tint="#555353"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.757"
+                app:layout_constraintHorizontal_bias="0.853"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/addpost_img"
-                tools:src="@drawable/plusicon" />
+                app:layout_constraintTop_toTopOf="@+id/addpost_img" />
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_width="93dp"
-                android:layout_height="46dp"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="30dp"
-                android:text="TITLE:"
+                android:layout_marginTop="8dp"
+                android:text="Title:"
+                android:textColor="#5A565A"
                 android:textSize="24sp"
                 android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +110,7 @@
                 android:id="@+id/addpost_category"
                 android:layout_width="197dp"
                 android:layout_height="47dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/addpost_addBtn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -116,13 +122,13 @@
                 android:layout_width="0dp"
                 android:layout_height="96dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:background="#B1A9A9"
+                android:background="#E3DFDF"
                 android:ems="10"
                 android:gravity="start|top"
-                android:inputType="textMultiLine"
                 android:hint="tell more about your design here"
+                android:inputType="textMultiLine"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

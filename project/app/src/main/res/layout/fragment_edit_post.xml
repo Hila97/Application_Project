@@ -28,22 +28,22 @@
                 app:layout_constraintHorizontal_bias="0.464"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.475" />
+                app:layout_constraintVertical_bias="0.407" />
 
             <ImageButton
                 android:id="@+id/editPost_imgBtn"
-                android:layout_width="88dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="152dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="128dp"
+                android:layout_marginEnd="8dp"
                 android:background="#02FFFFFF"
                 android:scaleType="centerInside"
-                android:src="@drawable/plusicon"
-                android:tint="#555353"
+                android:src="@drawable/pencil"
+                android:tint="#878585"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.835"
+                app:layout_constraintHorizontal_bias="0.881"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editPost_img"
-                tools:src="@drawable/plusicon" />
+                app:layout_constraintTop_toTopOf="@+id/editPost_img" />
 
             <Spinner
                 android:id="@+id/editPost_category"
@@ -61,7 +61,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:background="#B1A9A9"
+                android:background="#E3DDDD"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -76,7 +76,7 @@
                 android:layout_height="41dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="30dp"
-                android:text="TITLE:"
+                android:text="Title:"
                 android:textSize="24sp"
                 android:textStyle="normal|bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,6 @@
                 android:id="@+id/editPost_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginEnd="24dp"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -98,22 +97,22 @@
 
             <ImageView
                 android:id="@+id/editPost_img"
-                android:layout_width="249dp"
-                android:layout_height="209dp"
+                android:layout_width="256dp"
+                android:layout_height="165dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/picture"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/editPost_cancel_btn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="#00FFFFFF"
                 android:scaleType="centerInside"
@@ -128,27 +127,29 @@
                 android:id="@+id/editPost_save_btn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginEnd="124dp"
                 android:background="#00FFFFFF"
                 android:scaleType="centerInside"
                 android:src="@drawable/save"
                 app:layout_constraintBottom_toBottomOf="@+id/editPost_cancel_btn"
-                app:layout_constraintEnd_toStartOf="@+id/editPost_delete_btn"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/editPost_cancel_btn"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/editPost_cancel_btn" />
 
             <ImageButton
                 android:id="@+id/editPost_delete_btn"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:background="#00FFFFFF"
                 android:scaleType="centerInside"
-                android:src="@drawable/trash"
-                app:layout_constraintBottom_toBottomOf="@+id/editPost_save_btn"
+                android:src="@drawable/delete2"
+                android:tint="#858383"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/editPost_save_btn"
-                app:layout_constraintTop_toTopOf="@+id/editPost_save_btn" />
+                app:layout_constraintStart_toEndOf="@+id/editPost_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

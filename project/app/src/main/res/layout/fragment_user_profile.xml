@@ -111,8 +111,8 @@
 
             <ImageView
                 android:id="@+id/imageview11"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/ic__email"
@@ -122,8 +122,8 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/ic_phone"
@@ -133,8 +133,8 @@
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="21dp"
-                android:layout_height="29dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/ic_lock"
