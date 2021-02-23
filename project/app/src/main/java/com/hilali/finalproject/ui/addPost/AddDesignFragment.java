@@ -166,7 +166,7 @@ public class AddDesignFragment extends Fragment {
                     startActivityForResult(takePicture, 0);
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto=new Intent(Intent.ACTION_GET_CONTENT);
-                    pickPhoto.setType("PostsImage/*");
+                    pickPhoto.setType("image/*");
                     startActivityForResult(pickPhoto, 1);
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
